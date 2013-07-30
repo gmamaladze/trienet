@@ -12,6 +12,7 @@ using NUnit.Framework;
 namespace Gma.DataStructures.StringSearch.Test
 {
     [TestFixture]
+    [Explicit]
     public class PerformanceCaomparisonTests
     {
         [TestFixtureSetUp]
