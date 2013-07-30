@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="BaseTrieTest.cs" />
     <Compile Include="ConcurrentTrieTest.cs" />
-    <Compile Include="Copy of TrieTest.cs" />
+    <Compile Include="SimpleTrieTest.cs" />
     <Compile Include="PatriciaTrieTest.cs" />
     <Compile Include="Performance\FakeTrie.cs" />
     <Compile Include="Performance\PerformanceCaomparisonTests.cs" />
@@ -54,7 +54,6 @@
     <Compile Include="TrieTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Stats.txt" />
     <Content Include="TestCaseGeneration\english-words.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

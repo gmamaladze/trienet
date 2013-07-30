@@ -86,21 +86,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\texts\Adventures of Huckleberry Finn by Mark Twain.txt" />
-    <Content Include="bin\Debug\texts\Alice%27s Adventures in Wonderland by Lewis Carroll.txt" />
-    <Content Include="bin\Debug\texts\Grimms%27 Fairy Tales by Jacob Grimm and Wilhelm Grimm.txt" />
-    <Content Include="bin\Debug\texts\Les Misérables by Victor Hugo.txt" />
-    <Content Include="bin\Debug\texts\Metamorphosis by Franz Kafka.txt" />
-    <Content Include="bin\Debug\texts\Peter Pan by J. M. Barrie.txt" />
-    <Content Include="bin\Debug\texts\Pride and Prejudice by Jane Austen.txt" />
-    <Content Include="bin\Debug\texts\The Adventures of Sherlock Holmes by Arthur Conan Doyle.txt" />
-    <Content Include="bin\Debug\texts\The Art of War by Sunzi.txt" />
-    <Content Include="bin\Debug\texts\The Importance of Being Earnest by Oscar Wilde.txt" />
-    <Content Include="bin\Debug\texts\Ulysses by James Joyce.txt" />
+    <Content Include="texts\Adventures of Huckleberry Finn by Mark Twain.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="texts\Alice%27s Adventures in Wonderland by Lewis Carroll.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="texts\Grimms%27 Fairy Tales by Jacob Grimm and Wilhelm Grimm.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="texts\Peter Pan by J. M. Barrie.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="texts\QuickBrownFox.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
