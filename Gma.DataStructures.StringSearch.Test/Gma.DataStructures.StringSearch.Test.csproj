@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="BaseTrieTest.cs" />
     <Compile Include="ConcurrentTrieTest.cs" />
-    <Compile Include="SimpleTrieTest.cs" />
     <Compile Include="PatriciaTrieTest.cs" />
     <Compile Include="Performance\FakeTrie.cs" />
     <Compile Include="Performance\PerformanceCaomparisonTests.cs" />
@@ -64,10 +63,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
