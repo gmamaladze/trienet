@@ -1,5 +1,7 @@
 // This code is distributed under MIT license. Copyright (c) 2013 George Mamaladze
 // See license.txt or http://opensource.org/licenses/mit-license.php
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,6 +17,7 @@ namespace Gma.DataStructures.StringSearch
 
         public void Add(string key, int position, TValue value)
         {
+            if (key == null) throw new ArgumentNullException("key");
             if (EndOfString(position, key))
             {
                 AddValue(value);
@@ -29,7 +32,7 @@ namespace Gma.DataStructures.StringSearch
 
         protected abstract TrieNodeBase<TValue> GetOrCreateChild(char key);
 
-        protected virtual IEnumerable<TValue> Find(string query, int position)
+        protected virtual IEnumerable<TValue> Retrieve(string query, int position)
         {
             return
                 EndOfString(position, query)
@@ -41,7 +44,7 @@ namespace Gma.DataStructures.StringSearch
         {
             TrieNodeBase<TValue> nextNode = GetChildOrNull(query, position);
             return nextNode != null
-                       ? nextNode.Find(query, position + nextNode.KeyLength)
+                       ? nextNode.Retrieve(query, position + nextNode.KeyLength)
                        : Enumerable.Empty<TValue>();
         }
 

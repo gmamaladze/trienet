@@ -86,10 +86,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="texts\Adventures of Huckleberry Finn by Mark Twain.txt" />
-    <Content Include="texts\Alice%27s Adventures in Wonderland by Lewis Carroll.txt" />
-    <Content Include="texts\Grimms%27 Fairy Tales by Jacob Grimm and Wilhelm Grimm.txt" />
-    <Content Include="texts\Peter Pan by J. M. Barrie.txt" />
+    <Content Include="texts\Adventures of Huckleberry Finn by Mark Twain.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="texts\Alice%27s Adventures in Wonderland by Lewis Carroll.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="texts\Grimms%27 Fairy Tales by Jacob Grimm and Wilhelm Grimm.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="texts\Peter Pan by J. M. Barrie.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="texts\QuickBrownFox.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

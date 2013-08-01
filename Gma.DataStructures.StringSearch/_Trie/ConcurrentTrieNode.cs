@@ -1,5 +1,7 @@
 // This code is distributed under MIT license. Copyright (c) 2013 George Mamaladze
 // See license.txt or http://opensource.org/licenses/mit-license.php
+
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
@@ -44,6 +46,7 @@ namespace Gma.DataStructures.StringSearch
 
         protected override TrieNodeBase<TValue> GetChildOrNull(string query, int position)
         {
+            if (query == null) throw new ArgumentNullException("query");
             ConcurrentTrieNode<TValue> childNode;
             return
                 m_Children.TryGetValue(query[position], out childNode)

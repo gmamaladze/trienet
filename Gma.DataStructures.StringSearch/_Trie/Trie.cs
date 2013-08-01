@@ -8,7 +8,7 @@ namespace Gma.DataStructures.StringSearch
     {
         public IEnumerable<TValue> Retrieve(string query)
         {
-            return Find(query, 0);
+            return Retrieve(query, 0);
         }
 
         public void Add(string key, TValue value)

@@ -1,5 +1,6 @@
 ﻿// This code is distributed under MIT license. Copyright (c) 2013 George Mamaladze
 // See license.txt or http://opensource.org/licenses/mit-license.php
+
 using System.Diagnostics;
 
 namespace Gma.DataStructures.StringSearch
@@ -23,12 +24,12 @@ namespace Gma.DataStructures.StringSearch
             get
             {
                 return m_ThisRest.Length == 0
-                           ? (m_OtherRest.Length == 0
-                                  ? MatchKind.ExactMatch
-                                  : MatchKind.IsContained)
-                           : (m_OtherRest.Length == 0
-                                  ? MatchKind.Contains
-                                  : MatchKind.Partial);
+                    ? (m_OtherRest.Length == 0
+                        ? MatchKind.ExactMatch
+                        : MatchKind.IsContained)
+                    : (m_OtherRest.Length == 0
+                        ? MatchKind.Contains
+                        : MatchKind.Partial);
             }
         }
 
@@ -45,6 +46,29 @@ namespace Gma.DataStructures.StringSearch
         public StringPartition CommonHead
         {
             get { return m_CommonHead; }
+        }
+
+        public bool Equals(ZipResult other)
+        {
+            return m_CommonHead.Equals(other.m_CommonHead) && m_OtherRest.Equals(other.m_OtherRest) &&
+                   m_ThisRest.Equals(other.m_ThisRest);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is ZipResult && Equals((ZipResult) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = m_CommonHead.GetHashCode();
+                hashCode = (hashCode*397) ^ m_OtherRest.GetHashCode();
+                hashCode = (hashCode*397) ^ m_ThisRest.GetHashCode();
+                return hashCode;
+            }
         }
     }
 }
