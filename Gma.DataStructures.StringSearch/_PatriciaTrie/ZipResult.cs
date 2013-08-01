@@ -48,10 +48,13 @@ namespace Gma.DataStructures.StringSearch
             get { return m_CommonHead; }
         }
 
+
         public bool Equals(ZipResult other)
         {
-            return m_CommonHead.Equals(other.m_CommonHead) && m_OtherRest.Equals(other.m_OtherRest) &&
-                   m_ThisRest.Equals(other.m_ThisRest);
+            return 
+                m_CommonHead == other.m_CommonHead && 
+                m_OtherRest == other.m_OtherRest &&
+                m_ThisRest == other.m_ThisRest;
         }
 
         public override bool Equals(object obj)
@@ -69,6 +72,16 @@ namespace Gma.DataStructures.StringSearch
                 hashCode = (hashCode*397) ^ m_ThisRest.GetHashCode();
                 return hashCode;
             }
+        }
+
+        public static bool operator ==(ZipResult left, ZipResult right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(ZipResult left, ZipResult right)
+        {
+            return !(left == right);
         }
     }
 }

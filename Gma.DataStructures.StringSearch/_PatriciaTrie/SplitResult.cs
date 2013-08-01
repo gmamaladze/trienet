@@ -26,7 +26,7 @@ namespace Gma.DataStructures.StringSearch
 
         public bool Equals(SplitResult other)
         {
-            return m_Head.Equals(other.m_Head) && m_Rest.Equals(other.m_Rest);
+            return m_Head == other.m_Head && m_Rest == other.m_Rest;
         }
 
         public override bool Equals(object obj)
@@ -41,6 +41,16 @@ namespace Gma.DataStructures.StringSearch
             {
                 return (m_Head.GetHashCode()*397) ^ m_Rest.GetHashCode();
             }
+        }
+
+        public static bool operator ==(SplitResult left, SplitResult right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(SplitResult left, SplitResult right)
+        {
+            return !(left == right);
         }
     }
 }

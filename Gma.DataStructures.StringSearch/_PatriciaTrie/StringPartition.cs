@@ -19,12 +19,12 @@ namespace Gma.DataStructures.StringSearch
         private readonly int m_StartIndex;
 
         public StringPartition(string origin)
-            : this(origin, 0, origin.Length)
+            : this(origin, 0, origin==null ? 0 : origin.Length)
         {
         }
 
         public StringPartition(string origin, int startIndex)
-            : this(origin, startIndex, origin.Length - startIndex)
+            : this(origin, startIndex, origin == null ? 0 : origin.Length - startIndex)
         {
         }
 
@@ -143,6 +143,16 @@ namespace Gma.DataStructures.StringSearch
         {
             var result = new string(this.ToArray());
             return string.Intern(result);
+        }
+
+        public static bool operator ==(StringPartition left, StringPartition right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(StringPartition left, StringPartition right)
+        {
+            return !(left == right);
         }
     }
 }
