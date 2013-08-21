@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		license.txt = license.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gma.DataStructures.StringSearch.SampleConsoleApp", "Gma.DataStructures.StringSearch.SampleConsoleApp\Gma.DataStructures.StringSearch.SampleConsoleApp.csproj", "{AA86F904-90E5-407F-87B6-688ED8A2FF85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,16 @@ Global
 		{7C2CFF68-CFCD-4069-8EB4-FF136084DE1B}.Release|Mixed Platforms.Build.0 = Release|x86
 		{7C2CFF68-CFCD-4069-8EB4-FF136084DE1B}.Release|x86.ActiveCfg = Release|x86
 		{7C2CFF68-CFCD-4069-8EB4-FF136084DE1B}.Release|x86.Build.0 = Release|x86
+		{AA86F904-90E5-407F-87B6-688ED8A2FF85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA86F904-90E5-407F-87B6-688ED8A2FF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA86F904-90E5-407F-87B6-688ED8A2FF85}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AA86F904-90E5-407F-87B6-688ED8A2FF85}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AA86F904-90E5-407F-87B6-688ED8A2FF85}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AA86F904-90E5-407F-87B6-688ED8A2FF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA86F904-90E5-407F-87B6-688ED8A2FF85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA86F904-90E5-407F-87B6-688ED8A2FF85}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AA86F904-90E5-407F-87B6-688ED8A2FF85}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AA86F904-90E5-407F-87B6-688ED8A2FF85}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
