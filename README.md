@@ -29,7 +29,7 @@ I have seen manyquestions about an efficient way of implementing a (prefix or in
 
 So it depends:
 
-* If your data source is aSQL or some other indexed database holdig your data it makes sense to utilize it’s search capabilities and issue a query to find maching records.
+* If your data source is aSQL or some other indexed database holdig your data it makes sense to utilize itâ€™s search capabilities and issue a query to find maching records.
 
 * If you have a small ammount of data, a linear scan will be probably the most efficient.
 
@@ -77,16 +77,16 @@ Class|Description
 
 Important: all diagrams are given in logarithmic scale on x-axis.
 
-To answer the question about when to use trie vs. linear search beter I’v experimeted with real data.
+To answer the question about when to use trie vs. linear search beter Iâ€™v experimeted with real data.
 As you can see below using a trie data structure may already be reasonable after 10.000 records if you are expecting many queries on the same data set.
 
 ![](https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-look-up1.png)
 
-Look-up times on patricia are slightly better, advantages of patricia bacame more noticable if you work with strings having many repeating parts, like quelified names of classes in sourcecode files, namespaces, variable names etc. So if you are indexing source code or something similar it makes sense to use patricia …
+Look-up times on patricia are slightly better, advantages of patricia bacame more noticable if you work with strings having many repeating parts, like quelified names of classes in sourcecode files, namespaces, variable names etc. So if you are indexing source code or something similar it makes sense to use patricia â€¦
 
 ![](https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-look-up2.png)
 
-… even if the build-up time of patricia is higher compared to the normal trie.
+â€¦ even if the build-up time of patricia is higher compared to the normal trie.
 
 ![](https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-build-up1.png)
 
@@ -96,5 +96,5 @@ Look-up times on patricia are slightly better, advantages of patricia bacame mor
 
 The app demonstrates indexing of large text files and look-up inside them. I have experimented with huge texts containing millions of words. Indexing took usually only several seconds and the look-up delay was still unnoticable for the user.
 
-![](https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-demo-app.png)
+![](https://github.com/gmamaladze/trienet/blob/master/img/trie-demo-app.png?raw=true)
 
