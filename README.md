@@ -1,6 +1,8 @@
 # trienet
 Migrated from https://trienet.codeplex.com/
 
+[![Build status](https://ci.appveyor.com/api/projects/status/4ruj2ijq2uc0pu2m/branch/master?svg=true)](https://ci.appveyor.com/project/gmamaladze/trienet/branch/master)
+
 # usage
 ```csharp
 using Gma.DataStructures.StringSearch;
