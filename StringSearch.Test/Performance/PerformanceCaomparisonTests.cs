@@ -15,14 +15,14 @@ namespace Gma.DataStructures.StringSearch.Test
     [Explicit]
     public class PerformanceCaomparisonTests
     {
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             m_Writer = File.CreateText(s_StatsFileName);
             m_Vocabualry = NonsenseGeneration.GetVocabulary();
         }
 
-        [TestFixtureTearDown]
+        [OneTimeSetUp]
         public void TearDown()
         {
             if (m_Writer == null) return;

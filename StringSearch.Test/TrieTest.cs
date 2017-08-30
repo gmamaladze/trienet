@@ -14,7 +14,7 @@ namespace Gma.DataStructures.StringSearch.Test
         }
 
         [Test]
-        [ExpectedException(typeof(AggregateException))]
+        //[ExpectedException(typeof(AggregateException))]
         [Explicit]
         public void ExhaustiveParallelAddFails()
         {

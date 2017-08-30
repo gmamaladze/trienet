@@ -12,7 +12,7 @@ namespace Gma.DataStructures.StringSearch.Test
     {
         protected ITrie<int> Trie { get; private set; }
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public virtual void Setup()
         {
             Trie = CreateTrie();
