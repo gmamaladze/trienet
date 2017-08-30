@@ -1,7 +1,7 @@
 # trienet
 Migrated from https://trienet.codeplex.com/
 
-#usage
+# usage
 ```csharp
 using Gma.DataStructures.StringSearch;
 	
