@@ -59,6 +59,9 @@
   <ItemGroup>
     <CodeAnalysisDictionary Include="CustomDictionary.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="StringSearch.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT exist $(SolutionDir)binaries mkdir $(SolutionDir)binaries

@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80B41D2C-7608-4824-A6E5-C009C65F8561}"
 	ProjectSection(SolutionItems) = preProject
 		license.txt = license.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringSearch", "StringSearch\StringSearch.csproj", "{17125877-2CF0-42B2-89D3-418E40BDE5D0}"

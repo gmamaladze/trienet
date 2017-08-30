@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://raw.githubusercontent.com/gmamaladze/trienet/master/license.txt</licenseUrl>
+    <projectUrl>https://github.com/gmamaladze/trienet</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/gmamaladze/trienet/master/img/trienet.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>data-structures dotnet algorithms search</tags>
+  </metadata>
+</package>
