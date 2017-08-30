@@ -1,15 +1,29 @@
 #trienet
-
 Migrated from https://trienet.codeplex.com/
 
+#usage
+```csharp
+	using Gma.DataStructures.StringSearch;
+	
+	...
 
+    var trie = new SuffixTrie<int>(3);
+
+    trie.Add("hello", 1);
+    trie.Add("world", 2);
+    trie.Add("hell", 3);
+
+    var result = trie.Retrieve("hel");
+```
+
+#motivation
 If you are implementing a modern user friendly peace of software you will very probably need something like this:
 
-!()[https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-Example.png]
+![](https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-Example.png)
 
 Or this:
 
-!()[https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-Example_2.png)
+![](https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-Example_2.png)
 
 I have seen manyquestions about an efficient way of implementing a (prefix or infix) search over a key value pairs where keys are strings (for instance see:http://stackoverflow.com/questions/10472881/search-liststring-for-string-startswith).
 
@@ -53,8 +67,8 @@ My small library contains a bunch of trie data structures all having the same in
 
 Class|Description  
 -----|-------------
-`Trie` | the simple trie, allows only prefix search, like .Where(s => s.StartsWith(searchString))
-`SuffixTrie` | allows also infix search, like .Where(s => s.Contains(searchString))
+`Trie` | the simple trie, allows only prefix search, like `.Where(s => s.StartsWith(searchString))`
+`SuffixTrie` | allows also infix search, like `.Where(s => s.Contains(searchString))`
 `PatriciaTrie` | compressed trie, more compact, a bit more efficient during look-up, but a quite slower durig build-up.
 `SuffixPatriciaTrie` | the same as PatriciaTrie, also enabling infix search.
 `ParallelTrie` | very primitively implemented parallel data structure which allows adding data and retriving results from different threads simultaneusly.
@@ -66,15 +80,15 @@ Important: all diagrams are given in logarithmic scale on x-axis.
 To answer the question about when to use trie vs. linear search beter I’v experimeted with real data.
 As you can see below using a trie data structure may already be reasonable after 10.000 records if you are expecting many queries on the same data set.
 
-!()[https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-look-up1.png]
+![](https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-look-up1.png)
 
 Look-up times on patricia are slightly better, advantages of patricia bacame more noticable if you work with strings having many repeating parts, like quelified names of classes in sourcecode files, namespaces, variable names etc. So if you are indexing source code or something similar it makes sense to use patricia …
 
-!()[https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-look-up2.png]
+![](https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-look-up2.png)
 
 … even if the build-up time of patricia is higher compared to the normal trie.
 
-!()[https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-build-up1.png]
+![](https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-build-up1.png)
 
  
 
@@ -82,5 +96,5 @@ Look-up times on patricia are slightly better, advantages of patricia bacame mor
 
 The app demonstrates indexing of large text files and look-up inside them. I have experimented with huge texts containing millions of words. Indexing took usually only several seconds and the look-up delay was still unnoticable for the user.
 
-!()[https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-demo-app.png]
+![](https://raw.githubusercontent.com/gmamaladze/trienet/master/img/Trie-demo-app.png)
 
