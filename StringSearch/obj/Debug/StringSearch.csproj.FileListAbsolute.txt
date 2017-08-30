@@ -1,0 +1,5 @@
+D:\github\trienet\StringSearch\bin\Debug\Gma.DataStructures.StringSearch.dll
+D:\github\trienet\StringSearch\bin\Debug\Gma.DataStructures.StringSearch.pdb
+D:\github\trienet\StringSearch\obj\Debug\StringSearch.csproj.CoreCompileInputs.cache
+D:\github\trienet\StringSearch\obj\Debug\Gma.DataStructures.StringSearch.dll
+D:\github\trienet\StringSearch\obj\Debug\Gma.DataStructures.StringSearch.pdb

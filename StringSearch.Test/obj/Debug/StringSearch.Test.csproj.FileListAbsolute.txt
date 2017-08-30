@@ -1,0 +1,11 @@
+D:\github\trienet\StringSearch.Test\bin\Debug\TestCaseGeneration\english-words.txt
+D:\github\trienet\StringSearch.Test\bin\Debug\Gma.DataStructures.StringSearch.Test.dll
+D:\github\trienet\StringSearch.Test\bin\Debug\Gma.DataStructures.StringSearch.Test.pdb
+D:\github\trienet\StringSearch.Test\bin\Debug\Gma.DataStructures.StringSearch.dll
+D:\github\trienet\StringSearch.Test\bin\Debug\nunit.framework.dll
+D:\github\trienet\StringSearch.Test\bin\Debug\Gma.DataStructures.StringSearch.pdb
+D:\github\trienet\StringSearch.Test\bin\Debug\nunit.framework.xml
+D:\github\trienet\StringSearch.Test\obj\Debug\StringSearch.Test.csprojResolveAssemblyReference.cache
+D:\github\trienet\StringSearch.Test\obj\Debug\StringSearch.Test.csproj.CoreCompileInputs.cache
+D:\github\trienet\StringSearch.Test\obj\Debug\Gma.DataStructures.StringSearch.Test.dll
+D:\github\trienet\StringSearch.Test\obj\Debug\Gma.DataStructures.StringSearch.Test.pdb
