@@ -5,10 +5,10 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Gma.DataStructures.StringSearch")]
-[assembly: AssemblyDescription(".NET Data Structures for Substring Search, Auto-completion and Intelli-sense.")]
+[assembly: AssemblyTitle("TrieNet")]
+[assembly: AssemblyDescription(".NET Implementation of Trie Data Structures for Substring Search, Auto-completion and Intelli-sense.")]
 [assembly: AssemblyCompany("George Mamaladze")]
-[assembly: AssemblyProduct("Gma.DataStructures.StringSearch")]
+[assembly: AssemblyProduct("TrieNet")]
 [assembly: AssemblyCopyright("Copyright © George Mamaladze 2013")]
 [assembly: ComVisible(false)]
 [assembly: Guid("d26f9135-08b5-4f5e-93c4-04707132110b")]
