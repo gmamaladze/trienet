@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{17125877-2CF0-42B2-89D3-418E40BDE5D0}</ProjectGuid>
+    <ProjectGuid>{84284C14-F2EE-47E1-AD63-E001A98D5954}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gma.DataStructures.StringSearch</RootNamespace>
-    <AssemblyName>Gma.DataStructures.StringSearch</AssemblyName>
+    <RootNamespace>Gma.DataStructures.StringSearch.Test</RootNamespace>
+    <AssemblyName>Gma.DataStructures.StringSearch.Test</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -22,7 +22,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>ExtendedDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -35,38 +34,43 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="ITrie.cs" />
-    <Compile Include="_PatriciaTrie\MatchKind.cs" />
-    <Compile Include="_Trie\SuffixTrie.cs" />
-    <Compile Include="_Trie\ConcurrentTrie.cs" />
-    <Compile Include="_Trie\ConcurrentTrieNode.cs" />
-    <Compile Include="_PatriciaTrie\PatriciaTrie.cs" />
-    <Compile Include="_PatriciaTrie\PatriciaTrieNode.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="_PatriciaTrie\SplitResult.cs" />
-    <Compile Include="_PatriciaTrie\StringPartition.cs" />
-    <Compile Include="_PatriciaTrie\PatriciaSuffixTrie.cs" />
-    <Compile Include="_Trie\Trie.cs" />
-    <Compile Include="_Trie\TrieNode.cs" />
-    <Compile Include="_PatriciaTrie\ZipResult.cs" />
-    <Compile Include="_Trie\TrieNodeBase.cs" />
+    <Compile Include="BaseTrieTest.cs" />
+    <Compile Include="ConcurrentTrieTest.cs" />
+    <Compile Include="PatriciaTrieTest.cs" />
+    <Compile Include="Performance\FakeTrie.cs" />
+    <Compile Include="Performance\PerformanceCaomparisonTests.cs" />
+    <Compile Include="SuffixTrieTest.cs" />
+    <Compile Include="TestCaseGeneration\SentenceBuilder.cs" />
+    <Compile Include="StringPartitionTest.cs" />
+    <Compile Include="TestCaseGeneration\TestCaseGenerator.cs" />
+    <Compile Include="TestCaseGeneration\NonsenseGeneration.cs" />
+    <Compile Include="TrieTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
+    <Content Include="TestCaseGeneration\english-words.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="StringSearch.nuspec" />
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TrieNet\TrieNet.csproj">
+      <Project>{17125877-2cf0-42b2-89d3-418e40bde5d0}</Project>
+      <Name>TrieNet</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>IF NOT exist $(SolutionDir)binaries mkdir $(SolutionDir)binaries
-copy $(TargetPath) $(SolutionDir)binaries\$(TargetFileName)</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

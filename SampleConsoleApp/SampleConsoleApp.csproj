@@ -51,9 +51,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StringSearch\StringSearch.csproj">
+    <ProjectReference Include="..\TrieNet\TrieNet.csproj">
       <Project>{17125877-2cf0-42b2-89d3-418e40bde5d0}</Project>
-      <Name>StringSearch</Name>
+      <Name>TrieNet</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

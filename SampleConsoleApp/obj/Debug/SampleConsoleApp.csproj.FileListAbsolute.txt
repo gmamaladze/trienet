@@ -2,9 +2,9 @@ D:\github\trienet\SampleConsoleApp\bin\Debug\sample.txt
 D:\github\trienet\SampleConsoleApp\bin\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.exe.config
 D:\github\trienet\SampleConsoleApp\bin\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.exe
 D:\github\trienet\SampleConsoleApp\bin\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.pdb
-D:\github\trienet\SampleConsoleApp\bin\Debug\Gma.DataStructures.StringSearch.dll
-D:\github\trienet\SampleConsoleApp\bin\Debug\Gma.DataStructures.StringSearch.pdb
 D:\github\trienet\SampleConsoleApp\obj\Debug\SampleConsoleApp.csprojResolveAssemblyReference.cache
 D:\github\trienet\SampleConsoleApp\obj\Debug\SampleConsoleApp.csproj.CoreCompileInputs.cache
 D:\github\trienet\SampleConsoleApp\obj\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.exe
 D:\github\trienet\SampleConsoleApp\obj\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.pdb
+D:\github\trienet\SampleConsoleApp\bin\Debug\TrieNet.dll
+D:\github\trienet\SampleConsoleApp\bin\Debug\TrieNet.pdb
