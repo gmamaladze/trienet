@@ -11,7 +11,7 @@ you liked it, you find it useful
 so I migrated it from dying https://trienet.codeplex.com/ 
 
 <pre>
-  nuget install MouseKeyHook
+  nuget install TrieNet
 </pre>
 
 and created a [NuGet package](https://www.nuget.org/packages/TrieNet/).
