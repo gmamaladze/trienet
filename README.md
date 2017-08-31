@@ -7,7 +7,7 @@
 
 you liked it, you find it useful
 
-![](https://github.com/gmamaladze/trienet/blob/master/img/reviews.png?raw=true)
+![](/img/reviews.png)
 
 so I migrated it from dying https://trienet.codeplex.com/ 
 
@@ -35,11 +35,11 @@ var result = trie.Retrieve("hel");
 # motivation
 If you are implementing a modern user friendly peace of software you will very probably need something like this:
 
-![](https://github.com/gmamaladze/trienet/blob/master/img/trie-example.png?raw=true)
+![](/img/trie-example.png)
 
 Or this:
 
-![](https://github.com/gmamaladze/trienet/blob/master/img/trie-example_2.png?raw=true)
+![](/img/trie-example_2.png)
 
 I have seen manyquestions about an efficient way of implementing a (prefix or infix) search over a key value pairs where keys are strings (for instance see:http://stackoverflow.com/questions/10472881/search-liststring-for-string-startswith).
 
@@ -96,15 +96,15 @@ Important: all diagrams are given in logarithmic scale on x-axis.
 To answer the question about when to use trie vs. linear search beter I’v experimeted with real data.
 As you can see below using a trie data structure may already be reasonable after 10.000 records if you are expecting many queries on the same data set.
 
-![](https://github.com/gmamaladze/trienet/blob/master/img/trie-look-up1.png?raw=true)
+![](/img/trie-look-up1.png)
 
 Look-up times on patricia are slightly better, advantages of patricia bacame more noticable if you work with strings having many repeating parts, like quelified names of classes in sourcecode files, namespaces, variable names etc. So if you are indexing source code or something similar it makes sense to use patricia …
 
-![](https://raw.githubusercontent.com/gmamaladze/trienet/blob/master/img/trie-look-up2.png?raw=true)
+![](/img/trie-look-up2.png)
 
 … even if the build-up time of patricia is higher compared to the normal trie.
 
-![](https://github.com/gmamaladze/trienet/blob/master/img/trie-build-up1.png?raw=true)
+![](/img/trie-build-up1.png)
 
  
 
@@ -112,5 +112,5 @@ Look-up times on patricia are slightly better, advantages of patricia bacame mor
 
 The app demonstrates indexing of large text files and look-up inside them. I have experimented with huge texts containing millions of words. Indexing took usually only several seconds and the look-up delay was still unnoticable for the user.
 
-![](https://github.com/gmamaladze/trienet/blob/master/img/trie-demo-app.png?raw=true)
+![](/img/trie-demo-app.png)
 
