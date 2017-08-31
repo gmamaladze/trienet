@@ -1,7 +1,21 @@
-# trienet
-Migrated from https://trienet.codeplex.com/
-
 [![Build status](https://ci.appveyor.com/api/projects/status/4ruj2ijq2uc0pu2m/branch/master?svg=true)](https://ci.appveyor.com/project/gmamaladze/trienet/branch/master)
+[![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)]([![NuGet](https://img.shields.io/nuget/dt/Microsoft.AspNetCore.Mvc.svg)](https://www.nuget.org/packages/TrieNet/))
+
+![TrieNet - The library provides .NET Data Structures for Prefix String Search and Substring (Infix) Search to Implement Auto-completion and Intelli-sense.](/img/trienet.png)
+
+# trienet
+
+you liked it, you find it useful
+
+![](https://github.com/gmamaladze/trienet/blob/master/img/reviews.png?raw=true)
+
+so I migrated it from dying https://trienet.codeplex.com/ 
+
+<pre>
+  nuget install MouseKeyHook
+</pre>
+
+and created a [NuGet package](https://www.nuget.org/packages/TrieNet/).
 
 # usage
 ```csharp
