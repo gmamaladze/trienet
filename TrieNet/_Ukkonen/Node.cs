@@ -1,129 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
-    internal class Node
+    
+    
+    internal class Node<T>
     {
-        private const int StartSize = 0;
-        private const int Increment = 1;
-        
-        private readonly IDictionary<char, Edge> _edges;
-        private int[] _data;
-        private int _lastIdx;
-        private int _resultCount = -1;
+        private readonly IDictionary<char, Edge<T>> _edges;
+        private readonly HashSet<T> _data;
 
         public Node()
         {
-            _edges = new EdgeBag();
+            _edges = new CharDictionary<T>();
             Suffix = null;
-            _data = new int[StartSize];
+            _data = new HashSet<T>();
         }
 
-        public IEnumerable<int> GetData()
+       
+
+        public IEnumerable<T> GetData()
         {
-            return GetData(-1);
+            var childData = _edges.Values.Select((e) => e.Target).SelectMany((t) => t.GetData());
+            return _data.Concat(childData).Distinct();
         }
 
-        public IEnumerable<int> GetData(int numElements)
+        public void AddRef(T value)
         {
-            var ret = new HashSet<int>();
-            foreach (var num in _data)
-            {
-                ret.Add(num);
-                if (ret.Count == numElements)
-                    return ret;
-            }
-
-            //  need to get more matches from child nodes. This is what may waste time
-            foreach (var e in _edges.Values)
-                if (-1 == numElements || ret.Count < numElements)
-                    foreach (var num in e.Target.GetData())
-                    {
-                        ret.Add(num);
-                        if (ret.Count == numElements)
-                            return ret;
-                    }
-
-            return ret;
-        }
-
-        public void AddRef(int index)
-        {
-            if (Contains(index))
+            if (_data.Contains(value))
                 return;
 
-            AddIndex(index);
+            _data.Add(value);
             //  add this reference to all the suffixes as well
             var iter = Suffix;
             while (iter != null)
             {
-                if (iter.Contains(index))
+                if (iter._data.Contains(value))
                     break;
 
-                iter.AddRef(index);
+                iter.AddRef(value);
                 iter = iter.Suffix;
             }
         }
 
-        private bool Contains(int index)
-        {
-            return Array.BinarySearch(_data, index) >= 0;
-        }
-
-        public int ComputeAndCacheCount()
-        {
-            ComputeAndCacheCountRecursive();
-            return _resultCount;
-        }
-
-        private ISet<int> ComputeAndCacheCountRecursive()
-        {
-            ISet<int> ret = new HashSet<int>();
-            foreach (var num in _data)
-                ret.Add(num);
-
-            foreach (var e in _edges.Values)
-            foreach (var num in e.Target.ComputeAndCacheCountRecursive())
-                ret.Add(num);
-
-            _resultCount = ret.Count;
-            return ret;
-        }
-
-        public int GetResultCount()
-        {
-            if (-1 == _resultCount)
-                throw new InvalidOperationException(
-                    "getResultCount() shouldn\'t be called without calling computeCount() first");
-
-            return _resultCount;
-        }
-
-        public void AddEdge(char ch, Edge e)
+        public void AddEdge(char ch, Edge<T> e)
         {
             _edges[ch] = e;
         }
 
-        public Edge GetEdge(char ch)
+        public Edge<T> GetEdge(char ch)
         {
-            Edge result = null;
+            Edge<T> result;
             _edges.TryGetValue(ch, out result);
             return result;
         }
 
-        public Node Suffix { get; set; }
-
-        private void AddIndex(int index)
-        {
-            if (_lastIdx == _data.Length)
-            {
-                var copy = new int[_data.Length + Increment];
-                Array.Copy(_data, 0, copy, 0, _data.Length);
-                _data = copy;
-            }
-
-            _data[_lastIdx++] = index;
-        }
+        public Node<T> Suffix { get; set; }
     }
 }
