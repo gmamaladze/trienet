@@ -18,3 +18,12 @@ D:/github/trienet/SampleConsoleApp/bin/Debug/TrieNet.pdb
 /Users/gmamaladze/github/trienet/SampleConsoleApp/obj/Debug/SampleConsoleApp.csproj.CoreCompileInputs.cache
 /Users/gmamaladze/github/trienet/SampleConsoleApp/obj/Debug/Gma.DataStructures.StringSearch.SampleConsoleApp.exe
 /Users/gmamaladze/github/trienet/SampleConsoleApp/obj/Debug/Gma.DataStructures.StringSearch.SampleConsoleApp.pdb
+C:\Users\gmama\Documents\GitHub\trienet\SampleConsoleApp\bin\Debug\sample.txt
+C:\Users\gmama\Documents\GitHub\trienet\SampleConsoleApp\bin\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.exe.config
+C:\Users\gmama\Documents\GitHub\trienet\SampleConsoleApp\bin\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.exe
+C:\Users\gmama\Documents\GitHub\trienet\SampleConsoleApp\bin\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.pdb
+C:\Users\gmama\Documents\GitHub\trienet\SampleConsoleApp\bin\Debug\TrieNet.dll
+C:\Users\gmama\Documents\GitHub\trienet\SampleConsoleApp\bin\Debug\TrieNet.pdb
+C:\Users\gmama\Documents\GitHub\trienet\SampleConsoleApp\obj\Debug\SampleConsoleApp.csprojResolveAssemblyReference.cache
+C:\Users\gmama\Documents\GitHub\trienet\SampleConsoleApp\obj\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.exe
+C:\Users\gmama\Documents\GitHub\trienet\SampleConsoleApp\obj\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.pdb

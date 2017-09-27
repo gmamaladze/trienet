@@ -152,12 +152,14 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
 
         public void addEdge(char ch, Edge e)
         {
-            this.edges.Add(ch, e);
+            this.edges[ch] = e;
         }
 
         public Edge getEdge(char ch)
         {
-            return this.edges[ch];
+            Edge result = null;
+            this.edges.TryGetValue(ch, out result);
+            return result;
         }
 
         IDictionary<char, Edge> getEdges()
