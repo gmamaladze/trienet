@@ -7,6 +7,7 @@ using System.Dynamic;
 using System.IO;
 using System.Linq;
 using Gma.DataStructures.StringSearch.Test.TestCaseGeneration;
+using Gma.DataStructures.StringSearch._Ukkonen;
 using NUnit.Framework;
 
 namespace Gma.DataStructures.StringSearch.Test
@@ -39,7 +40,8 @@ namespace Gma.DataStructures.StringSearch.Test
         {
             List,
             Simple,
-            Patricia
+            Patricia,
+            Ukkonen,
         }
 
         [TestCase("List", 10000, 1000)]
@@ -56,6 +58,11 @@ namespace Gma.DataStructures.StringSearch.Test
         [TestCase("Patricia", 100000, 1000)]
         [TestCase("Patricia", 1000000, 1000)]
         [TestCase("Patricia", 10000000, 1000)]
+        
+        [TestCase("Ukkonen", 10000, 1000)]
+        [TestCase("Ukkonen", 100000, 1000)]
+        [TestCase("Ukkonen", 1000000, 1000)]
+        [TestCase("Ukkonen", 10000000, 1000)]
         public void TestX(string trieTypeName, int wordCount, int lookupCount)
         {
             string[] randomText = NonsenseGeneration.GetRandomWords(m_Vocabualry, wordCount).ToArray();
@@ -82,6 +89,9 @@ namespace Gma.DataStructures.StringSearch.Test
 
                 case TrieType.Simple:
                     return new SuffixTrie<T>(3);
+                    
+                case TrieType.Ukkonen:
+                    return new UkkonenTree<T>(3);
 
                 default:
                     throw new NotSupportedException();

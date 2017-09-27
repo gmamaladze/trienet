@@ -8,7 +8,7 @@ namespace Gma.DataStructures.StringSearch.Test
     {
         protected override ITrie<int> CreateTrie()
         {
-            return new UkkonenTree<int>();
+            return new UkkonenTree<int>(0);
         }
     }
 }
