@@ -14,15 +14,15 @@ namespace Gma.DataStructures.StringSearch
         //The last leaf that was added during the update operation
         private Node<T> _activeLeaf;
 
-        public UkkonenTree()
+        public UkkonenTree() : this(0)
         {
-            _root = new Node<T>();
-            _activeLeaf = _root;
         }
 
-        public UkkonenTree(int minSuffixLength)
+        public UkkonenTree(int minSuffixLength) 
         {
             _minSuffixLength = minSuffixLength;
+            _root = new Node<T>();
+            _activeLeaf = _root;
         }
 
         public IEnumerable<T> Retrieve(string word)
