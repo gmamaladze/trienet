@@ -45,21 +45,19 @@
     <Compile Include="ConcurrentTrieTest.cs" />
     <Compile Include="PatriciaTrieTest.cs" />
     <Compile Include="Performance\FakeTrie.cs" />
-    <Compile Include="Performance\PerformanceCaomparisonTests.cs" />
+    <Compile Include="Performance\PerformanceComparisonTests.cs" />
     <Compile Include="SuffixTrieTest.cs" />
     <Compile Include="TestCaseGeneration\SentenceBuilder.cs" />
     <Compile Include="StringPartitionTest.cs" />
     <Compile Include="TestCaseGeneration\TestCaseGenerator.cs" />
     <Compile Include="TestCaseGeneration\NonsenseGeneration.cs" />
     <Compile Include="TrieTest.cs" />
+    <Compile Include="UkkonenTreeTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestCaseGeneration\english-words.txt">
+    <EmbeddedResource Include="TestCaseGeneration\english-words.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

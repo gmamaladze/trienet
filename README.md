@@ -1,7 +1,35 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/4ruj2ijq2uc0pu2m/branch/master?svg=true)](https://ci.appveyor.com/project/gmamaladze/trienet/branch/master)
-[![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)]([![NuGet](https://img.shields.io/nuget/dt/Microsoft.AspNetCore.Mvc.svg)](https://www.nuget.org/packages/TrieNet/))
+[![Build status](https://ci.appveyor.com/api/projects/status/4ruj2ijq2uc0pu2m/branch/master?svg=true)](https://ci.appveyor.com/project/gmamaladze/trienet/branch/master) [![NuGet version](https://badge.fury.io/nu/TrieNet.svg)](https://badge.fury.io/nu/TrieNet)
 
 ![TrieNet - The library provides .NET Data Structures for Prefix String Search and Substring (Infix) Search to Implement Auto-completion and Intelli-sense.](/img/trienet.png)
+
+# usage
+
+<pre>
+  nuget install TrieNet
+</pre>
+
+
+```csharp
+using Gma.DataStructures.StringSearch;
+	
+...
+
+var trie = new UkkonenTrie<int>(3);
+//var trie = new SuffixTrie<int>(3);
+
+trie.Add("hello", 1);
+trie.Add("world", 2);
+trie.Add("hell", 3);
+
+var result = trie.Retrieve("hel");
+```
+
+# updates
+
+Added `UkkonenTrie<T>` which is a trie implementation using [Ukkonen's algorithm](https://en.wikipedia.org/wiki/Ukkonen%27s_algorithm).
+Finally I managed to port (largely rewritten) a java implementation of [Generalized Suffix Tree using Ukkonen's algorithm](https://github.com/abahgat/suffixtree) by [Alessandro Bahgat](https://github.com/abahgat) (THANKS!). 
+
+I have not made all measurements yet, but it occurs to have significatly imroved build-up and look-up times. 
 
 # trienet
 
@@ -12,25 +40,11 @@ you liked it, you find it useful
 so I migrated it from dying https://trienet.codeplex.com/ 
 
 <pre>
-  nuget install MouseKeyHook
+  nuget install TrieNet
 </pre>
 
 and created a [NuGet package](https://www.nuget.org/packages/TrieNet/).
 
-# usage
-```csharp
-using Gma.DataStructures.StringSearch;
-	
-...
-
-var trie = new SuffixTrie<int>(3);
-
-trie.Add("hello", 1);
-trie.Add("world", 2);
-trie.Add("hell", 3);
-
-var result = trie.Retrieve("hel");
-```
 
 # motivation
 If you are implementing a modern user friendly peace of software you will very probably need something like this:

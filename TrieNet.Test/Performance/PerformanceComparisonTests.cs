@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
 using Gma.DataStructures.StringSearch.Test.TestCaseGeneration;
 using NUnit.Framework;
 
@@ -13,33 +15,33 @@ namespace Gma.DataStructures.StringSearch.Test
 {
     [TestFixture]
     [Explicit]
-    public class PerformanceCaomparisonTests
+    public class PerformanceComparisonTests
     {
         [OneTimeSetUp]
         public void SetUp()
         {
-            m_Writer = File.CreateText(s_StatsFileName);
+            _result = new StringBuilder();
+            m_Writer = new StringWriter(_result);
             m_Vocabualry = NonsenseGeneration.GetVocabulary();
         }
 
-        [OneTimeSetUp]
+        [OneTimeTearDown]
         public void TearDown()
         {
-            if (m_Writer == null) return;
-            m_Writer.Close();
-            m_Writer.Dispose();
-            m_Writer = null;
+            m_Writer?.Close();
+            Console.WriteLine(_result);
         }
 
         private string[] m_Vocabualry;
-        private StreamWriter m_Writer;
-        private const string s_StatsFileName = "c:\\temp\\stats.txt";
+        private StringWriter m_Writer;
+        private StringBuilder _result;
 
         private enum TrieType
         {
             List,
             Simple,
-            Patricia
+            Patricia,
+            Ukkonen,
         }
 
         [TestCase("List", 10000, 1000)]
@@ -56,6 +58,11 @@ namespace Gma.DataStructures.StringSearch.Test
         [TestCase("Patricia", 100000, 1000)]
         [TestCase("Patricia", 1000000, 1000)]
         [TestCase("Patricia", 10000000, 1000)]
+        
+        [TestCase("Ukkonen", 10000, 1000)]
+        [TestCase("Ukkonen", 100000, 1000)]
+        [TestCase("Ukkonen", 1000000, 1000)]
+        [TestCase("Ukkonen", 10000000, 1000)]
         public void TestX(string trieTypeName, int wordCount, int lookupCount)
         {
             string[] randomText = NonsenseGeneration.GetRandomWords(m_Vocabualry, wordCount).ToArray();
@@ -82,6 +89,9 @@ namespace Gma.DataStructures.StringSearch.Test
 
                 case TrieType.Simple:
                     return new SuffixTrie<T>(3);
+                    
+                case TrieType.Ukkonen:
+                    return new UkkonenTrie<T>(3);
 
                 default:
                     throw new NotSupportedException();

@@ -2,8 +2,11 @@
 // See license.txt or http://opensource.org/licenses/mit-license.php
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Gma.DataStructures.StringSearch.Test.TestCaseGeneration
@@ -11,7 +14,7 @@ namespace Gma.DataStructures.StringSearch.Test.TestCaseGeneration
     public static class NonsenseGeneration
     {
         public const int DefaultAverageWordCount = 15;
-        public const string VocabularyFileName = "TestCaseGeneration//english-words.txt";
+        public const string VocabularyFileName = "english-words.txt";
 
         public static string[] GetVocabulary()
         {
@@ -38,7 +41,7 @@ namespace Gma.DataStructures.StringSearch.Test.TestCaseGeneration
         public static IEnumerable<string> GetRandomNeighbourWordGroups(string[] vocabulary, int wordCount)
         {
             var words = new Stack<string>();
-            Random random = new Random();
+            var random = new Random();
             while (words.Count<wordCount)
             {
                 foreach (var neighbour in GetRandomNeighbourWords(vocabulary, random, 3))
@@ -82,27 +85,33 @@ namespace Gma.DataStructures.StringSearch.Test.TestCaseGeneration
 
         public static IEnumerable<string> GetWords(string fileName)
         {
-            using (StreamReader file = File.OpenText(fileName))
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = typeof(NonsenseGeneration).Namespace + "." + fileName;
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
             {
-                var word = new StringBuilder();
-                while (!file.EndOfStream)
+                Debug.Assert(stream != null, "Could not find resource {0}", resourceName);
+                using (var file = new StreamReader(stream))
                 {
-                    string line = file.ReadLine() ?? String.Empty;
-                    foreach (char ch in line)
+                    var word = new StringBuilder();
+                    while (!file.EndOfStream)
                     {
-                        if (Char.IsLetterOrDigit(ch))
+                        string line = file.ReadLine() ?? String.Empty;
+                        foreach (char ch in line)
                         {
-                            word.Append(ch);
+                            if (Char.IsLetterOrDigit(ch))
+                            {
+                                word.Append(ch);
+                            }
+                            else
+                            {
+                                yield return word.ToString();
+                                word.Clear();
+                            }
                         }
-                        else
-                        {
-                            yield return word.ToString();
-                            word.Clear();
-                        }
+                        if (word.Length == 0) continue;
+                        yield return word.ToString();
+                        word.Clear();
                     }
-                    if (word.Length == 0) continue;
-                    yield return word.ToString();
-                    word.Clear();
                 }
             }
         }

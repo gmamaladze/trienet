@@ -55,6 +55,10 @@
     <Compile Include="_Trie\TrieNode.cs" />
     <Compile Include="_PatriciaTrie\ZipResult.cs" />
     <Compile Include="_Trie\TrieNodeBase.cs" />
+    <Compile Include="_Ukkonen\Edge.cs" />
+    <Compile Include="_Ukkonen\CharDictionary.cs" />
+    <Compile Include="_Ukkonen\UkkonenTrie.cs" />
+    <Compile Include="_Ukkonen\Node.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="CustomDictionary.xml" />
@@ -64,8 +68,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF NOT exist $(SolutionDir)binaries mkdir $(SolutionDir)binaries
-copy $(TargetPath) $(SolutionDir)binaries\$(TargetFileName)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

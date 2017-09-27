@@ -1,2 +1,0 @@
-D:\github\trienet\Gma.DataStructures.StringSearch.SampleConsoleApp\obj\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.csprojResolveAssemblyReference.cache
-D:\github\trienet\Gma.DataStructures.StringSearch.SampleConsoleApp\obj\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.csproj.CoreCompileInputs.cache
