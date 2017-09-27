@@ -1,5 +1,4 @@
-﻿using Gma.DataStructures.StringSearch._Ukkonen;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Gma.DataStructures.StringSearch.Test
 {

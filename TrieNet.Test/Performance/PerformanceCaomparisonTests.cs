@@ -7,7 +7,6 @@ using System.Dynamic;
 using System.IO;
 using System.Linq;
 using Gma.DataStructures.StringSearch.Test.TestCaseGeneration;
-using Gma.DataStructures.StringSearch._Ukkonen;
 using NUnit.Framework;
 
 namespace Gma.DataStructures.StringSearch.Test

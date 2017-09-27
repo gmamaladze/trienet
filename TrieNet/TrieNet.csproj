@@ -59,8 +59,8 @@
     <Compile Include="_Ukkonen\EdgeBag.cs" />
     <Compile Include="_Ukkonen\GeneralizedSuffixTree.cs" />
     <Compile Include="_Ukkonen\Node.cs" />
+    <Compile Include="_Ukkonen\ResultInfo.cs" />
     <Compile Include="_Ukkonen\UkkonenTree.cs" />
-    <Compile Include="_Ukkonen\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="CustomDictionary.xml" />

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization.Formatters;
-using Gma.DataStructures.StringSearch._Ukkonen;
 
-namespace Gma.DataStructures.StringSearch._Ukkonen
+namespace Gma.DataStructures.StringSearch
 {
 
 /**
@@ -28,42 +26,36 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
  * The tree is composed of a set of nodes and labeled edges. The labels on the edges can have any length as long as it's greater than 0.
  * The only constraint is that no two edges going out from the same node will start with the same character.
  * 
- * Because of this, a given (startNode, stringSuffix) pair can denote a unique path within the tree, and it is the path (if any) that can be
+ * Because of this, a given (startNode, stringSuffix) Tuple can denote a unique path within the tree, and it is the path (if any) that can be
  * composed by sequentially traversing all the edges (e1, e2, ...) starting from startNode such that (e1.label + e2.label + ...) is equal
  * to the stringSuffix.
  * See the search method for details.
  * 
  * The union of all the edge labels from the root to a given leaf node denotes the set of the strings explicitly contained within the GST.
- * In addition to those Strings, there are a set of different strings that are implicitly contained within the GST, and it is composed of
+ * In addition to those strings, there are a set of different strings that are implicitly contained within the GST, and it is composed of
  * the strings built by concatenating e1.label + e2.label + ... + $end, where e1, e2, ... is a proper path and $end is prefix of any of
  * the labels of the edges starting from the last node of the path.
  *
  * This kind of "implicit path" is important in the testAndSplit method.
  *  
  */
-    public class GeneralizedSuffixTree
+    internal class GeneralizedSuffixTree
     {
 
-        /**
-         * The index of the last item that was added to the GST
-         */
-        private int last;
+        //The index of the last item that was added to the GST
+        private int _last;
 
-        /**
-         * The root of the suffix tree
-         */
-        private readonly Node root;
+        //The root of the suffix tree
+        private readonly Node _root;
 
-        /**
-         * The last leaf that was added during the update operation
-         */
-        private Node activeLeaf;
+        //The last leaf that was added during the update operation
+        private Node _activeLeaf;
 
         public GeneralizedSuffixTree()
         {
-            root = new Node();
-            activeLeaf = root;
-            last = 0;
+            _root = new Node();
+            _activeLeaf = _root;
+            _last = 0;
         }
 
         /**
@@ -75,9 +67,9 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
          * @param word the key to search for
          * @return the collection of indexes associated with the input <tt>word</tt>
          */
-        public IEnumerable<int> search(string word)
+        public IEnumerable<int> Search(string word)
         {
-            return search(word, -1);
+            return Search(word, -1);
         }
 
         /**
@@ -87,14 +79,12 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
          * @param results the max number of results to return
          * @return at most <tt>results</tt> values for the given word
          */
-        public IEnumerable<int> search(string word, int results)
+        public IEnumerable<int> Search(string word, int results)
         {
-            var tmpNode = searchNode(word);
-            if (tmpNode == null)
-            {
-                return Enumerable.Empty<int>();
-            }
-            return tmpNode.getData(results);
+            var tmpNode = SearchNode(word);
+            return tmpNode == null 
+                ? Enumerable.Empty<int>() 
+                : tmpNode.GetData(results);
         }
 
         /**
@@ -105,19 +95,16 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
          * @return at most <tt>results</tt> values for the given word
          * @see GeneralizedSuffixTree#ResultInfo
          */
-        public ResultInfo searchWithCount(String word, int to)
+        public ResultInfo SearchWithCount(string word, int to)
         {
-            Node tmpNode = searchNode(word);
-            if (tmpNode == null)
-            {
-                return new ResultInfo(Enumerable.Empty<int>(), 0);
-            }
-
-            return new ResultInfo(tmpNode.getData(to), tmpNode.getResultCount());
+            var tmpNode = SearchNode(word);
+            return tmpNode == null 
+                ? new ResultInfo(Enumerable.Empty<int>(), 0) 
+                : new ResultInfo(tmpNode.GetData(to), tmpNode.GetResultCount());
         }
 
 
-        private bool RegionMatches(string first, int toffset, string second, int ooffset, int len)
+        private static bool RegionMatches(string first, int toffset, string second, int ooffset, int len)
         {
             for (var i = 0; i < len; i++)
             {
@@ -131,48 +118,41 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
         /**
          * Returns the tree node (if present) that corresponds to the given string.
          */
-        private Node searchNode(String word)
+        private Node SearchNode(string word)
         {
             /*
              * Verifies if exists a path from the root to a node such that the concatenation
              * of all the labels on the path is a superstring of the given word.
              * If such a path is found, the last node on it is returned.
              */
-            Node currentNode = root;
-            Edge currentEdge;
+            var currentNode = _root;
 
-            for (int i = 0; i < word.Length; ++i)
+            for (var i = 0; i < word.Length; ++i)
             {
-                char ch = word[i];
+                var ch = word[i];
                 // follow the edge corresponding to this char
-                currentEdge = currentNode.getEdge(ch);
+                var currentEdge = currentNode.GetEdge(ch);
                 if (null == currentEdge)
                 {
                     // there is no edge starting with this char
                     return null;
                 }
-                else
+                var label = currentEdge.Label;
+                var lenToMatch = Math.Min(word.Length - i, label.Length);
+
+                if (!RegionMatches(word, i, label, 0, lenToMatch))
                 {
-                    String label = currentEdge.getLabel();
-                    int lenToMatch = Math.Min(word.Length - i, label.Length);
-
-                    if (!RegionMatches(word, i, label, 0, lenToMatch))
-                    {
-                        // the label on the edge does not correspond to the one in the string to search
-                        return null;
-                    }
-
-                    if (label.Length >= word.Length - i)
-                    {
-                        return currentEdge.getDest();
-                    }
-                    else
-                    {
-                        // advance to next node
-                        currentNode = currentEdge.getDest();
-                        i += lenToMatch - 1;
-                    }
+                    // the label on the edge does not correspond to the one in the string to search
+                    return null;
                 }
+
+                if (label.Length >= word.Length - i)
+                {
+                    return currentEdge.Target;
+                }
+                // advance to next node
+                currentNode = currentEdge.Target;
+                i += lenToMatch - 1;
             }
 
             return null;
@@ -188,30 +168,30 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
          * @param index the value that will be added to the index
          * @throws IllegalStateException if an invalid index is passed as input
          */
-        public void put(String key, int index)
+        public void Put(string key, int index)
         {
-            if (index < last)
+            if (index < _last)
             {
                 throw new InvalidOperationException(
                     "The input index must not be less than any of the previously inserted ones. Got " + index +
-                    ", expected at least " + last);
+                    ", expected at least " + _last);
             }
             else
             {
-                last = index;
+                _last = index;
             }
 
             // reset activeLeaf
-            activeLeaf = root;
+            _activeLeaf = _root;
 
-            String remainder = key;
-            Node s = root;
+            var remainder = key;
+            var s = _root;
 
             // proceed with tree construction (closely related to procedure in
             // Ukkonen's paper)
-            String text = "";
+            var text = string.Empty;
             // iterate over the string, one char at a time
-            for (int i = 0; i < remainder.Length; i++)
+            for (var i = 0; i < remainder.Length; i++)
             {
                 // line 6
                 text += remainder[i];
@@ -220,18 +200,18 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
                 //text = text.Intern();
 
                 // line 7: update the tree with the new transitions due to this new char
-                Pair<Node, String> active = update(s, text, remainder.Substring(i), index);
-                // line 8: make sure the active pair is canonical
-                active = canonize(active.getFirst(), active.getSecond());
+                var active = Update(s, text, remainder.Substring(i), index);
+                // line 8: make sure the active Tuple is canonical
+                active = Canonize(active.Item1, active.Item2);
 
-                s = active.getFirst();
-                text = active.getSecond();
+                s = active.Item1;
+                text = active.Item2;
             }
 
             // add leaf suffix link, is necessary
-            if (null == activeLeaf.getSuffix() && activeLeaf != root && activeLeaf != s)
+            if (null == _activeLeaf.Suffix && _activeLeaf != _root && _activeLeaf != s)
             {
-                activeLeaf.setSuffix(s);
+                _activeLeaf.Suffix = s;
             }
 
         }
@@ -251,137 +231,116 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
          * @param t the following character
          * @param remainder the remainder of the string to add to the index
          * @param value the value to add to the index
-         * @return a pair containing
+         * @return a Tuple containing
          *                  true/false depending on whether (stringPart + t) is contained in the subtree starting in inputs
          *                  the last node that can be reached by following the path denoted by stringPart starting from inputs
          *         
          */
-        private Pair<Boolean, Node> testAndSplit(Node inputs, String stringPart, char t, String remainder, int value)
+        private Tuple<bool, Node> TestAndSplit(Node inputs, string stringPart, char t, string remainder, int value)
         {
             // descend the tree as far as possible
-            Pair<Node, String> ret = canonize(inputs, stringPart);
-            Node s = ret.getFirst();
-            String str = ret.getSecond();
+            var ret = Canonize(inputs, stringPart);
+            var s = ret.Item1;
+            var str = ret.Item2;
 
-            if (!"".Equals(str))
+            if (!string.Empty.Equals(str))
             {
-                Edge g = s.getEdge(str[0]);
+                var g = s.GetEdge(str[0]);
 
-                String label = g.getLabel();
+                var label = g.Label;
                 // must see whether "str" is substring of the label of an edge
                 if (label.Length > str.Length && label[str.Length] == t)
                 {
-                    return new Pair<Boolean, Node>(true, s);
+                    return new Tuple<bool, Node>(true, s);
                 }
-                else
-                {
-                    // need to split the edge
-                    String newlabel = label.Substring(str.Length);
-                    //assert (label.startsWith(str));
+                // need to split the edge
+                var newlabel = label.Substring(str.Length);
+                //assert (label.startsWith(str));
 
-                    // build a new node
-                    Node r = new Node();
-                    // build a new edge
-                    Edge newedge = new Edge(str, r);
+                // build a new node
+                var r = new Node();
+                // build a new edge
+                var newedge = new Edge(str, r);
 
-                    g.setLabel(newlabel);
+                g.Label = newlabel;
 
-                    // link s -> r
-                    r.addEdge(newlabel[0], g);
-                    s.addEdge(str[0], newedge);
+                // link s -> r
+                r.AddEdge(newlabel[0], g);
+                s.AddEdge(str[0], newedge);
 
-                    return new Pair<Boolean, Node>(false, r);
-                }
-
+                return new Tuple<bool, Node>(false, r);
             }
-            else
+            var e = s.GetEdge(t);
+            if (null == e)
             {
-                Edge e = s.getEdge(t);
-                if (null == e)
-                {
-                    // if there is no t-transtion from s
-                    return new Pair<Boolean, Node>(false, s);
-                }
-                else
-                {
-                    if (remainder.Equals(e.getLabel()))
-                    {
-                        // update payload of destination node
-                        e.getDest().addRef(value);
-                        return new Pair<Boolean, Node>(true, s);
-                    }
-                    else if (remainder.StartsWith(e.getLabel()))
-                    {
-                        return new Pair<Boolean, Node>(true, s);
-                    }
-                    else if (e.getLabel().StartsWith(remainder))
-                    {
-                        // need to split as above
-                        Node newNode = new Node();
-                        newNode.addRef(value);
-
-                        Edge newEdge = new Edge(remainder, newNode);
-
-                        e.setLabel(e.getLabel().Substring(remainder.Length));
-
-                        newNode.addEdge(e.getLabel()[0], e);
-
-                        s.addEdge(t, newEdge);
-
-                        return new Pair<Boolean, Node>(false, s);
-                    }
-                    else
-                    {
-                        // they are different words. No prefix. but they may still share some common substr
-                        return new Pair<Boolean, Node>(true, s);
-                    }
-                }
+                // if there is no t-transtion from s
+                return new Tuple<Boolean, Node>(false, s);
             }
+            if (remainder.Equals(e.Label))
+            {
+                // update payload of destination node
+                e.Target.AddRef(value);
+                return new Tuple<bool, Node>(true, s);
+            }
+            if (remainder.StartsWith(e.Label))
+            {
+                return new Tuple<bool, Node>(true, s);
+            }
+            if (!e.Label.StartsWith(remainder))
+            {
+                return new Tuple<bool, Node>(true, s);
+            }
+            // need to split as above
+            var newNode = new Node();
+            newNode.AddRef(value);
 
+            var newEdge = new Edge(remainder, newNode);
+            e.Label = e.Label.Substring(remainder.Length);
+            newNode.AddEdge(e.Label[0], e);
+            s.AddEdge(t, newEdge);
+            return new Tuple<bool, Node>(false, s);
+            // they are different words. No prefix. but they may still share some common substr
         }
 
         /**
-         * Return a (Node, String) (n, remainder) pair such that n is a farthest descendant of
+         * Return a (Node, string) (n, remainder) Tuple such that n is a farthest descendant of
          * s (the input node) that can be reached by following a path of edges denoting
          * a prefix of inputstr and remainder will be string that must be
          * appended to the concatenation of labels from s to n to get inpustr.
          */
-        private Pair<Node, String> canonize(Node s, String inputstr)
+        private static Tuple<Node, string> Canonize(Node s, string inputstr)
         {
 
-            if ("".Equals(inputstr))
+            if (string.Empty.Equals(inputstr))
             {
-                return new Pair<Node, String>(s, inputstr);
+                return new Tuple<Node, string>(s, inputstr);
             }
-            else
+            var currentNode = s;
+            var str = inputstr;
+            var g = s.GetEdge(str[0]);
+            // descend the tree as long as a proper label is found
+            while (g != null && str.StartsWith(g.Label))
             {
-                Node currentNode = s;
-                String str = inputstr;
-                Edge g = s.getEdge(str[0]);
-                // descend the tree as long as a proper label is found
-                while (g != null && str.StartsWith(g.getLabel()))
+                str = str.Substring(g.Label.Length);
+                currentNode = g.Target;
+                if (str.Length > 0)
                 {
-                    str = str.Substring(g.getLabel().Length);
-                    currentNode = g.getDest();
-                    if (str.Length > 0)
-                    {
-                        g = currentNode.getEdge(str[0]);
-                    }
+                    g = currentNode.GetEdge(str[0]);
                 }
-
-                return new Pair<Node, String>(currentNode, str);
             }
+
+            return new Tuple<Node, string>(currentNode, str);
         }
 
         /**
          * Updates the tree starting from inputNode and by adding stringPart.
          * 
-         * Returns a reference (Node, String) pair for the string that has been added so far.
+         * Returns a reference (Node, string) Tuple for the string that has been added so far.
          * This means:
          * - the Node will be the Node that can be reached by the longest path string (S1)
          *   that can be obtained by concatenating consecutive edges in the tree and
          *   that is a substring of the string added so far to the tree.
-         * - the String will be the remainder that must be added to S1 to get the string
+         * - the string will be the remainder that must be added to S1 to get the string
          *   added so far.
          * 
          * @param inputNode the node to start from
@@ -389,60 +348,60 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
          * @param rest the rest of the string
          * @param value the value to add to the index
          */
-        private Pair<Node, String> update(Node inputNode, String stringPart, String rest, int value)
+        private Tuple<Node, string> Update(Node inputNode, string stringPart, string rest, int value)
         {
-            Node s = inputNode;
-            String tempstr = stringPart;
-            char newChar = stringPart[stringPart.Length - 1];
+            var s = inputNode;
+            var tempstr = stringPart;
+            var newChar = stringPart[stringPart.Length - 1];
 
             // line 1
-            Node oldroot = root;
+            var oldroot = _root;
 
             // line 1b
-            Pair<Boolean, Node> ret = testAndSplit(s, tempstr.Substring(0, tempstr.Length - 1), newChar, rest, value);
+            var ret = TestAndSplit(s, tempstr.Substring(0, tempstr.Length - 1), newChar, rest, value);
 
-            Node r = ret.getSecond();
-            bool endpoint = ret.getFirst();
+            var r = ret.Item2;
+            var endpoint = ret.Item1;
 
-            Node leaf;
             // line 2
             while (!endpoint)
             {
                 // line 3
-                Edge tempEdge = r.getEdge(newChar);
+                var tempEdge = r.GetEdge(newChar);
+                Node leaf;
                 if (null != tempEdge)
                 {
                     // such a node is already present. This is one of the main differences from Ukkonen's case:
                     // the tree can contain deeper nodes at this stage because different strings were added by previous iterations.
-                    leaf = tempEdge.getDest();
+                    leaf = tempEdge.Target;
                 }
                 else
                 {
                     // must build a new leaf
                     leaf = new Node();
-                    leaf.addRef(value);
+                    leaf.AddRef(value);
                     Edge newedge = new Edge(rest, leaf);
-                    r.addEdge(newChar, newedge);
+                    r.AddEdge(newChar, newedge);
                 }
 
                 // update suffix link for newly created leaf
-                if (activeLeaf != root)
+                if (_activeLeaf != _root)
                 {
-                    activeLeaf.setSuffix(leaf);
+                    _activeLeaf.Suffix = leaf;
                 }
-                activeLeaf = leaf;
+                _activeLeaf = leaf;
 
                 // line 4
-                if (oldroot != root)
+                if (oldroot != _root)
                 {
-                    oldroot.setSuffix(r);
+                    oldroot.Suffix = r;
                 }
 
                 // line 5
                 oldroot = r;
 
                 // line 6
-                if (null == s.getSuffix())
+                if (null == s.Suffix)
                 {
                     // root node
                     //TODO Check why assert
@@ -452,92 +411,35 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
                 }
                 else
                 {
-                    Pair<Node, String> canret = canonize(s.getSuffix(), safeCutLastChar(tempstr));
-                    s = canret.getFirst();
+                    var canret = Canonize(s.Suffix, SafeCutLastChar(tempstr));
+                    s = canret.Item1;
                     // use intern to ensure that tempstr is a reference from the string pool
-                    tempstr = (canret.getSecond() + tempstr[tempstr.Length - 1]); //TODO .intern();
+                    tempstr = (canret.Item2 + tempstr[tempstr.Length - 1]); //TODO .intern();
                 }
 
                 // line 7
-                ret = testAndSplit(s, safeCutLastChar(tempstr), newChar, rest, value);
-                r = ret.getSecond();
-                endpoint = ret.getFirst();
-
+                ret = TestAndSplit(s, SafeCutLastChar(tempstr), newChar, rest, value);
+                r = ret.Item2;
+                endpoint = ret.Item1;
             }
 
             // line 8
-            if (oldroot != root)
+            if (oldroot != _root)
             {
-                oldroot.setSuffix(r);
+                oldroot.Suffix = r;
             }
-            oldroot = root;
 
-            return new Pair<Node, String>(s, tempstr);
+            return new Tuple<Node, string>(s, tempstr);
         }
 
-        Node getRoot()
+        private static string SafeCutLastChar(string seq)
         {
-            return root;
+            return seq.Length == 0 ? string.Empty : seq.Substring(0, seq.Length - 1);
         }
 
-        private String safeCutLastChar(String seq)
+        public int ComputeCount()
         {
-            if (seq.Length == 0)
-            {
-                return "";
-            }
-            return seq.Substring(0, seq.Length - 1);
-        }
-
-        public int computeCount()
-        {
-            return root.computeAndCacheCount();
-        }
-
-        /**
-         * An utility object, used to store the data returned by the GeneralizedSuffixTree GeneralizedSuffixTree.searchWithCount method.
-         * It contains a collection of results and the total number of results present in the GST.
-         * @see GeneralizedSuffixTree#searchWithCount(java.lang.String, int) 
-         */
-        public class ResultInfo
-        {
-
-            /**
-             * The total number of results present in the database
-             */
-            public int totalResults;
-
-            /**
-             * The collection of (some) results present in the GST
-             */
-            public IEnumerable<int> results;
-
-            public ResultInfo(IEnumerable<int> results, int totalResults)
-            {
-                this.totalResults = totalResults;
-                this.results = results;
-            }
-        }
-
-        /**
-         * A private class used to return a tuples of two elements
-         */
-        private class Pair<A, B> : Tuple<A, B>
-        {
-
-            public A getFirst()
-            {
-                return this.Item1;
-            }
-
-            public B getSecond()
-            {
-                return this.Item2;
-            }
-
-            public Pair(A item1, B item2) : base(item1, item2)
-            {
-            }
+            return _root.ComputeAndCacheCount();
         }
     }
 }

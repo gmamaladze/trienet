@@ -1,192 +1,129 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
-namespace Gma.DataStructures.StringSearch._Ukkonen
+namespace Gma.DataStructures.StringSearch
 {
-    class Node
+    internal class Node
     {
-
-        private int[] data;
-
-        private int lastIdx = 0;
-
-        private static int START_SIZE = 0;
-
-        private static int INCREMENT = 1;
-
-        private IDictionary<char, Edge> edges;
-
-        private Node suffix;
-
-        private int resultCount = -1;
+        private const int StartSize = 0;
+        private const int Increment = 1;
+        
+        private readonly IDictionary<char, Edge> _edges;
+        private int[] _data;
+        private int _lastIdx;
+        private int _resultCount = -1;
 
         public Node()
         {
-            this.edges = new EdgeBag();
-            this.suffix = null;
-            this.data = new int[START_SIZE];
+            _edges = new EdgeBag();
+            Suffix = null;
+            _data = new int[StartSize];
         }
 
-        public IEnumerable<int> getData()
+        public IEnumerable<int> GetData()
         {
-            return this.getData(-1);
+            return GetData(-1);
         }
 
-        public IEnumerable<int> getData(int numElements)
+        public IEnumerable<int> GetData(int numElements)
         {
-            ISet<int> ret = new HashSet<int>();
-            foreach (int num in this.data)
+            var ret = new HashSet<int>();
+            foreach (var num in _data)
             {
                 ret.Add(num);
-                if ((ret.Count == numElements))
-                {
+                if (ret.Count == numElements)
                     return ret;
-                }
             }
 
             //  need to get more matches from child nodes. This is what may waste time
-            foreach (Edge e in this.edges.Values)
-            {
-                if (((-1 == numElements)
-                     || (ret.Count < numElements)))
-                {
-                    foreach (int num in e.getDest().getData())
+            foreach (var e in _edges.Values)
+                if (-1 == numElements || ret.Count < numElements)
+                    foreach (var num in e.Target.GetData())
                     {
                         ret.Add(num);
-                        if ((ret.Count == numElements))
-                        {
+                        if (ret.Count == numElements)
                             return ret;
-                        }
-
                     }
 
-                }
-
-            }
-
             return ret;
         }
 
-        public void addRef(int index)
+        public void AddRef(int index)
         {
-            if (this.contains(index))
-            {
+            if (Contains(index))
                 return;
-            }
 
-            this.addIndex(index);
+            AddIndex(index);
             //  add this reference to all the suffixes as well
-            Node iter = this.suffix;
-            while ((iter != null))
+            var iter = Suffix;
+            while (iter != null)
             {
-                if (iter.contains(index))
-                {
+                if (iter.Contains(index))
                     break;
-                }
 
-                iter.addRef(index);
-                iter = iter.suffix;
+                iter.AddRef(index);
+                iter = iter.Suffix;
             }
-
         }
 
-        private bool contains(int index)
+        private bool Contains(int index)
         {
-            int low = 0;
-            int high = lastIdx - 1;
-
-            while (low <= high) {
-                int mid = (low + high) >> 1;
-                int midVal = data[mid];
-
-                if (midVal < index)
-                    low = mid + 1;
-                else if (midVal > index)
-                    high = mid - 1;
-                else
-                    return true;
-            }
-            return false;
-            // Java 5 equivalent to
-            // return java.util.Arrays.binarySearch(data, 0, lastIdx, index) >= 0;
+            return Array.BinarySearch(_data, index) >= 0;
         }
 
-        public int computeAndCacheCount()
+        public int ComputeAndCacheCount()
         {
-            this.computeAndCacheCountRecursive();
-            return this.resultCount;
+            ComputeAndCacheCountRecursive();
+            return _resultCount;
         }
 
-        private ISet<int> computeAndCacheCountRecursive()
+        private ISet<int> ComputeAndCacheCountRecursive()
         {
             ISet<int> ret = new HashSet<int>();
-            foreach (int num in this.data)
-            {
+            foreach (var num in _data)
                 ret.Add(num);
-            }
 
-            foreach (Edge e in this.edges.Values)
-            {
-                foreach (int num in e.getDest().computeAndCacheCountRecursive())
-                {
-                    ret.Add(num);
-                }
+            foreach (var e in _edges.Values)
+            foreach (var num in e.Target.ComputeAndCacheCountRecursive())
+                ret.Add(num);
 
-            }
-
-            this.resultCount = ret.Count;
+            _resultCount = ret.Count;
             return ret;
         }
 
-        public int getResultCount()
+        public int GetResultCount()
         {
-            if ((-1 == this.resultCount))
-            {
-                throw new ArgumentException(
+            if (-1 == _resultCount)
+                throw new InvalidOperationException(
                     "getResultCount() shouldn\'t be called without calling computeCount() first");
-            }
 
-            return this.resultCount;
+            return _resultCount;
         }
 
-        public void addEdge(char ch, Edge e)
+        public void AddEdge(char ch, Edge e)
         {
-            this.edges[ch] = e;
+            _edges[ch] = e;
         }
 
-        public Edge getEdge(char ch)
+        public Edge GetEdge(char ch)
         {
             Edge result = null;
-            this.edges.TryGetValue(ch, out result);
+            _edges.TryGetValue(ch, out result);
             return result;
         }
 
-        IDictionary<char, Edge> getEdges()
-        {
-            return this.edges;
-        }
+        public Node Suffix { get; set; }
 
-        public Node getSuffix()
+        private void AddIndex(int index)
         {
-            return this.suffix;
-        }
-
-        public void setSuffix(Node suffix)
-        {
-            this.suffix = suffix;
-        }
-
-        private void addIndex(int index)
-        {
-            if ((this.lastIdx == this.data.Length))
+            if (_lastIdx == _data.Length)
             {
-                int[] copy = new int[(this.data.Length + INCREMENT)];
-                Array.Copy(this.data, 0, copy, 0, this.data.Length);
-                this.data = copy;
+                var copy = new int[_data.Length + Increment];
+                Array.Copy(_data, 0, copy, 0, _data.Length);
+                _data = copy;
             }
 
-            this.data[lastIdx++] = index;
+            _data[_lastIdx++] = index;
         }
     }
 }
