@@ -57,7 +57,7 @@
     <Compile Include="_Trie\TrieNodeBase.cs" />
     <Compile Include="_Ukkonen\Edge.cs" />
     <Compile Include="_Ukkonen\CharDictionary.cs" />
-    <Compile Include="_Ukkonen\UkkonenTree.cs" />
+    <Compile Include="_Ukkonen\UkkonenTrie.cs" />
     <Compile Include="_Ukkonen\Node.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
-    public class UkkonenTree<T> : ITrie<T>
+    public class UkkonenTrie<T> : ITrie<T>
     {
         private readonly int _minSuffixLength;
 
@@ -14,11 +14,11 @@ namespace Gma.DataStructures.StringSearch
         //The last leaf that was added during the update operation
         private Node<T> _activeLeaf;
 
-        public UkkonenTree() : this(0)
+        public UkkonenTrie() : this(0)
         {
         }
 
-        public UkkonenTree(int minSuffixLength) 
+        public UkkonenTrie(int minSuffixLength) 
         {
             _minSuffixLength = minSuffixLength;
             _root = new Node<T>();

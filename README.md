@@ -2,6 +2,35 @@
 
 ![TrieNet - The library provides .NET Data Structures for Prefix String Search and Substring (Infix) Search to Implement Auto-completion and Intelli-sense.](/img/trienet.png)
 
+# usage
+
+<pre>
+  nuget install TrieNet
+</pre>
+
+
+```csharp
+using Gma.DataStructures.StringSearch;
+	
+...
+
+var trie = new UkkonenTrie<int>(3);
+//var trie = new SuffixTrie<int>(3);
+
+trie.Add("hello", 1);
+trie.Add("world", 2);
+trie.Add("hell", 3);
+
+var result = trie.Retrieve("hel");
+```
+
+# updates
+
+Added `UkkonenTrie<T>` which is a trie implementation using [Ukkonen's algorithm](https://en.wikipedia.org/wiki/Ukkonen%27s_algorithm).
+Finally I managed to port (largely rewritten) a java implementation of [Generalized Suffix Tree using Ukkonen's algorithm](https://github.com/abahgat/suffixtree) by [Alessandro Bahgat](https://github.com/abahgat) (THANKS!). 
+
+I have not made all measurements yet, but it occurs to have significatly imroved build-up and look-up times. 
+
 # trienet
 
 you liked it, you find it useful
@@ -16,20 +45,6 @@ so I migrated it from dying https://trienet.codeplex.com/
 
 and created a [NuGet package](https://www.nuget.org/packages/TrieNet/).
 
-# usage
-```csharp
-using Gma.DataStructures.StringSearch;
-	
-...
-
-var trie = new SuffixTrie<int>(3);
-
-trie.Add("hello", 1);
-trie.Add("world", 2);
-trie.Add("hell", 3);
-
-var result = trie.Retrieve("hel");
-```
 
 # motivation
 If you are implementing a modern user friendly peace of software you will very probably need something like this:

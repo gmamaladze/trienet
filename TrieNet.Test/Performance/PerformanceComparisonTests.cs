@@ -91,7 +91,7 @@ namespace Gma.DataStructures.StringSearch.Test
                     return new SuffixTrie<T>(3);
                     
                 case TrieType.Ukkonen:
-                    return new UkkonenTree<T>(3);
+                    return new UkkonenTrie<T>(3);
 
                 default:
                     throw new NotSupportedException();
