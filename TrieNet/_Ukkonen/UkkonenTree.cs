@@ -18,7 +18,7 @@ namespace Gma.DataStructures.StringSearch._Ukkonen
         
         public UkkonenTree(int minSuffixLength)
         {
-            if (minSuffixLength < 3) throw new ArgumentOutOfRangeException(nameof(minSuffixLength), "Minimum 3");
+            //if (minSuffixLength < 3) throw new ArgumentOutOfRangeException(nameof(minSuffixLength), "Minimum 3");
             _minSuffixLength = minSuffixLength;
             _inner = new GeneralizedSuffixTree();
             _values = new List<TValue>();

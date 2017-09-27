@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Gma.DataStructures.StringSearch.Test
 {
     [TestFixture]
-    public class UkkonenTreeTest : BaseTrieTest
+    public class UkkonenTreeTest : SuffixTrieTest
     {
         protected override ITrie<int> CreateTrie()
         {
