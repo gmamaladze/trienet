@@ -52,14 +52,12 @@
     <Compile Include="TestCaseGeneration\TestCaseGenerator.cs" />
     <Compile Include="TestCaseGeneration\NonsenseGeneration.cs" />
     <Compile Include="TrieTest.cs" />
+    <Compile Include="UkkonenTreeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestCaseGeneration\english-words.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
