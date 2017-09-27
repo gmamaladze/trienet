@@ -45,7 +45,7 @@
     <Compile Include="ConcurrentTrieTest.cs" />
     <Compile Include="PatriciaTrieTest.cs" />
     <Compile Include="Performance\FakeTrie.cs" />
-    <Compile Include="Performance\PerformanceCaomparisonTests.cs" />
+    <Compile Include="Performance\PerformanceComparisonTests.cs" />
     <Compile Include="SuffixTrieTest.cs" />
     <Compile Include="TestCaseGeneration\SentenceBuilder.cs" />
     <Compile Include="StringPartitionTest.cs" />
@@ -55,9 +55,9 @@
     <Compile Include="UkkonenTreeTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestCaseGeneration\english-words.txt">
+    <EmbeddedResource Include="TestCaseGeneration\english-words.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
