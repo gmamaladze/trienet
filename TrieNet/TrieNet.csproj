@@ -1,81 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{17125877-2CF0-42B2-89D3-418E40BDE5D0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gma.DataStructures.StringSearch</RootNamespace>
-    <AssemblyName>TrieNet</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <PackageId>TrieNet</PackageId>
+    <Authors>TrieNet</Authors>
+    <Company>George Mamaladze</Company>
+    <Product>TrieNet</Product>
+    <Description>.NET Implementations of Trie Data Structures for Substring Search, Auto-completion and Intelli-sense. Includes: patricia trie, suffix trie and a trie implementation using Ukkonen's algorithm.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>Copyright 2013</Copyright>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/gmamaladze/trienet/master/license.txt</PackageLicenseUrl>
+    <PackageProjectUrl>ttps://github.com/gmamaladze/trienet</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/gmamaladze/trienet/master/img/trienet.png</PackageIconUrl>
+    <PackageTags>ata-structures dotnet algorithms search</PackageTags>
+    <Version>1.0.4</Version>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>ExtendedDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="ITrie.cs" />
-    <Compile Include="_PatriciaTrie\MatchKind.cs" />
-    <Compile Include="_Trie\SuffixTrie.cs" />
-    <Compile Include="_Trie\ConcurrentTrie.cs" />
-    <Compile Include="_Trie\ConcurrentTrieNode.cs" />
-    <Compile Include="_PatriciaTrie\PatriciaTrie.cs" />
-    <Compile Include="_PatriciaTrie\PatriciaTrieNode.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="_PatriciaTrie\SplitResult.cs" />
-    <Compile Include="_PatriciaTrie\StringPartition.cs" />
-    <Compile Include="_PatriciaTrie\PatriciaSuffixTrie.cs" />
-    <Compile Include="_Trie\Trie.cs" />
-    <Compile Include="_Trie\TrieNode.cs" />
-    <Compile Include="_PatriciaTrie\ZipResult.cs" />
-    <Compile Include="_Trie\TrieNodeBase.cs" />
-    <Compile Include="_Ukkonen\Edge.cs" />
-    <Compile Include="_Ukkonen\CharDictionary.cs" />
-    <Compile Include="_Ukkonen\UkkonenTrie.cs" />
-    <Compile Include="_Ukkonen\Node.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TrieNet.nuspec" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
