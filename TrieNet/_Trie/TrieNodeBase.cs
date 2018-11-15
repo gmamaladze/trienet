@@ -68,5 +68,62 @@ namespace Gma.DataStructures.StringSearch
                 Enumerable.Repeat(this, 1)
                     .Concat(Children().SelectMany(child => child.Subtree()));
         }
+
+        /// <summary>
+        /// Remove the value belongs to a key, if key exists
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="position"></param>
+        /// <returns>boolean indicaties if the function shall continue with deletion process</returns>
+        public bool Remove(string key, int position)
+        {
+            if (key == null) throw new ArgumentNullException("key");
+            if (EndOfString(position, key))
+            {
+                // check if the key is part of longer key
+                if (BelongsToLongerKey(key, position))
+                {
+                    // if true remove only the value
+                    RemoveValue();
+                    // prevent the backward removal of the key
+                    return false;
+                }
+                // the key is either a unique key or contains a shorter key
+                // return true so the function can continue deleting
+                return true;
+            }
+
+            // had to us stack approach since no backward approach 
+
+            bool removeRecursively = Remove(key, position + 1);
+            // check if a delete signal from the previous call
+            if (removeRecursively)
+            {
+                // discontinue the delete process if a subkey has a value
+                return !HasValue(key, position);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// remove the current Node value
+        /// </summary>
+        protected abstract void RemoveValue();
+
+        /// <summary>
+        /// check if the current node belongs to a longer key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        protected abstract bool BelongsToLongerKey(string key, int position);
+
+        /// <summary>
+        /// check if the current node has a value
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        protected abstract bool HasValue(string key, int position);
     }
 }

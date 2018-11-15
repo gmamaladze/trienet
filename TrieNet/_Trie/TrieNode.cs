@@ -57,5 +57,20 @@ namespace Gma.DataStructures.StringSearch
         {
             m_Values.Enqueue(value);
         }
+
+        protected override void RemoveValue()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override bool BelongsToLongerKey(string key, int position)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override bool HasValue(string key, int position)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
