@@ -24,6 +24,8 @@ namespace Gma.DataStructures.StringSearch.Test
 
         protected abstract ITrie<int> CreateTrie();
 
+        // Note: please consider that the keys which are fed as TestCase to the remove functions are completely removed 
+
         public string[] Words40 = new[] {
                                             "daubreelite",
                                             "daubingly",
@@ -65,7 +67,8 @@ namespace Gma.DataStructures.StringSearch.Test
                                             "comolecule",
                                             "comodato",
                                             "comodato",
-                                            "cognoscibility"
+                                            "cognoscibility",
+                                            "protest"
                                         };
 
         [TestCase("d", new[] { 0, 1, 2 })]
@@ -461,13 +464,6 @@ namespace Gma.DataStructures.StringSearch.Test
             CollectionAssert.AreEquivalent(expected, actual);
         }
 
-        // key is unique
-
-        // key is a part of longer key
-
-        // key contains a shorter key 
-
-        // key doesnt exist
         /// <summary>
         /// test when a key is a part of a longer key
         /// </summary>
@@ -500,15 +496,21 @@ namespace Gma.DataStructures.StringSearch.Test
             Assert.Less(longerKeyAfterRemoveValues.Length, longerKeyBeforeRemoveValues.Length);
         }
 
-
-        public void TestUniqueKey(string key)
+        [TestCase("s")]
+        [TestCase("protest")]
+        public void TestUniqueKeyRemove(string key)
         {
+            Trie.Remove(key);
+            int[] keyAfterRemoveValues = Trie.Retrieve(key).ToArray();
+            Assert.AreEqual(keyAfterRemoveValues.Length, 0);
 
         }
 
-        public void TestUnExistedKey(string key)
+        [TestCase("unexistedkey1")]
+        [TestCase("unexistedkey2")]
+        public void TestUnExistedKeyRemove(string key)
         {
-
+            Trie.Remove(key);
         }
 
         [Test]

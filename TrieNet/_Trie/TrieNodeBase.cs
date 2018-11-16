@@ -96,7 +96,8 @@ namespace Gma.DataStructures.StringSearch
             // had to use stack approach since no backward approach 
 
             // replace this with get or null child and check if null return false
-            TrieNodeBase<TValue> child = GetOrCreateChild(key[position]);
+            TrieNodeBase<TValue> child = GetChildOrNull(key, position);
+            if (child is null) return false; 
             bool removeRecursively = child.Remove(key, position + 1);
             // check if a delete signal from the previous call
             if (removeRecursively)
