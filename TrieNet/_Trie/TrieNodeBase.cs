@@ -99,8 +99,9 @@ namespace Gma.DataStructures.StringSearch
             // check if a delete signal from the previous call
             if (removeRecursively)
             {
+                RemoveChild(key, position + 1);
                 // discontinue the delete process if a subkey has a value
-                return !HasValue(key, position);
+                return !HasValue();
             }
             return false;
         }
@@ -124,6 +125,13 @@ namespace Gma.DataStructures.StringSearch
         /// <param name="key"></param>
         /// <param name="position"></param>
         /// <returns></returns>
-        protected abstract bool HasValue(string key, int position);
+        protected abstract bool HasValue();
+
+        /// <summary>
+        /// remove a key child node 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="childPosition">the child key position usually the current position + 1</param>
+        protected abstract void RemoveChild(string key, int childPosition);
     }
 }

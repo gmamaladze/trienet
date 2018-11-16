@@ -60,17 +60,22 @@ namespace Gma.DataStructures.StringSearch
 
         protected override void RemoveValue()
         {
-            throw new NotImplementedException();
+            m_Values.Clear();
         }
 
         protected override bool BelongsToLongerKey(string key, int position)
         {
-            throw new NotImplementedException();
+           return m_Children.ContainsKey(key[position]);
         }
 
-        protected override bool HasValue(string key, int position)
+        protected override bool HasValue()
         {
-            throw new NotImplementedException();
+            return m_Values.Count > 0;
+        }
+
+        protected override void RemoveChild(string key, int childPosition)
+        {
+            m_Children.Remove(key[childPosition]);
         }
     }
 }
