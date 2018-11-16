@@ -8,3 +8,12 @@
 /Users/gmamaladze/github/trienet/SampleConsoleApp/obj/Debug/SampleConsoleApp.csproj.CoreCompileInputs.cache
 /Users/gmamaladze/github/trienet/SampleConsoleApp/obj/Debug/Gma.DataStructures.StringSearch.SampleConsoleApp.exe
 /Users/gmamaladze/github/trienet/SampleConsoleApp/obj/Debug/Gma.DataStructures.StringSearch.SampleConsoleApp.pdb
+D:\Miscellaneous\projects\Git\C#\trienet\SampleConsoleApp\bin\Debug\sample.txt
+D:\Miscellaneous\projects\Git\C#\trienet\SampleConsoleApp\bin\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.exe.config
+D:\Miscellaneous\projects\Git\C#\trienet\SampleConsoleApp\bin\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.exe
+D:\Miscellaneous\projects\Git\C#\trienet\SampleConsoleApp\bin\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.pdb
+D:\Miscellaneous\projects\Git\C#\trienet\SampleConsoleApp\bin\Debug\TrieNet.dll
+D:\Miscellaneous\projects\Git\C#\trienet\SampleConsoleApp\bin\Debug\TrieNet.pdb
+D:\Miscellaneous\projects\Git\C#\trienet\SampleConsoleApp\obj\Debug\SampleConsoleApp.csprojResolveAssemblyReference.cache
+D:\Miscellaneous\projects\Git\C#\trienet\SampleConsoleApp\obj\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.exe
+D:\Miscellaneous\projects\Git\C#\trienet\SampleConsoleApp\obj\Debug\Gma.DataStructures.StringSearch.SampleConsoleApp.pdb

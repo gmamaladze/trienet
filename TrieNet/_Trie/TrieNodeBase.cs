@@ -81,7 +81,7 @@ namespace Gma.DataStructures.StringSearch
             if (EndOfString(position, key))
             {
                 // check if the key is part of longer key
-                if (BelongsToLongerKey(key, position))
+                if (BelongsToLongerKey())
                 {
                     // if true remove only the value
                     RemoveValue();
@@ -93,9 +93,11 @@ namespace Gma.DataStructures.StringSearch
                 return true;
             }
 
-            // had to us stack approach since no backward approach 
+            // had to use stack approach since no backward approach 
 
-            bool removeRecursively = Remove(key, position + 1);
+            // replace this with get or null child and check if null return false
+            TrieNodeBase<TValue> child = GetOrCreateChild(key[position]);
+            bool removeRecursively = child.Remove(key, position + 1);
             // check if a delete signal from the previous call
             if (removeRecursively)
             {
@@ -104,6 +106,11 @@ namespace Gma.DataStructures.StringSearch
                 return !HasValue();
             }
             return false;
+        }
+
+        private bool LastCharacter( int position, string query)
+        {
+            return position == query.Length - 1;
         }
 
         /// <summary>
@@ -117,7 +124,7 @@ namespace Gma.DataStructures.StringSearch
         /// <param name="key"></param>
         /// <param name="position"></param>
         /// <returns></returns>
-        protected abstract bool BelongsToLongerKey(string key, int position);
+        protected abstract bool BelongsToLongerKey();
 
         /// <summary>
         /// check if the current node has a value

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using NUnit.Framework;
-
+using System.Linq;
 namespace Gma.DataStructures.StringSearch.Test
 {
     [TestFixture]
@@ -18,7 +18,7 @@ namespace Gma.DataStructures.StringSearch.Test
             Trie = CreateTrie();
             for (int i = 0; i < Words40.Length; i++)
             {
-                Trie.Add(Words40[i], i);
+                //Trie.Add(Words40[i], i);
             }
         }
 
@@ -460,6 +460,50 @@ namespace Gma.DataStructures.StringSearch.Test
             CollectionAssert.AreEquivalent(expected, actual);
         }
 
+        // key is unique
+
+        // key is a part of longer key
+
+        // key contains a shorter key 
+
+        // key doesnt exist
+        /// <summary>
+        /// test when a key is a part of a longer key
+        /// </summary>
+        /// <param name="shorterKey"></param>
+        /// <param name="LongerKey"></param>
+        [TestCase("unaccord", "unaccordant")]
+        [TestCase("koko", "kokoona")]
+        public void TestShorterKeyRemove(string shorterKey, string longerKey)
+        {
+            Trie.Add(shorterKey, 0);
+            Trie.Add(longerKey, 1);
+            int[] shorterKeyBeforeRemoveValues = Trie.Retrieve(shorterKey).ToArray();
+            int[] longerKeyBeforeRemoveValues = Trie.Retrieve(longerKey).ToArray();
+            Trie.Remove(shorterKey);
+            int[] shorterKeyAfterRemoveValues = Trie.Retrieve(shorterKey).ToArray();
+            int[] longerKeyAfterRemoveValues = Trie.Retrieve(longerKey).ToArray();
+            Assert.Less(shorterKeyAfterRemoveValues.Length , shorterKeyBeforeRemoveValues.Length);
+            Assert.AreEqual(longerKeyAfterRemoveValues.Length, longerKeyBeforeRemoveValues.Length);
+        }
+
+        [TestCase("ungivingness", "ungiveable")]
+        public void TestLongerKeyRemove(string longerKey, string shorterKey)
+        {
+
+        }
+
+
+        public void TestUniqueKey(string key)
+        {
+
+        }
+
+        public void TestUnExistedKey(string key)
+        {
+
+        }
+
         [Test]
         public void ExhaustiveAddTimeMeasurement()
         {
@@ -469,7 +513,7 @@ namespace Gma.DataStructures.StringSearch.Test
             ITrie<int> trie = CreateTrie();
             foreach (var phrase in Words40)
             {
-                trie.Add(phrase, phrase.GetHashCode());
+                //trie.Add(phrase, phrase.GetHashCode());
             }
 
             stopwatch.Stop();

@@ -32,5 +32,10 @@ namespace Gma.DataStructures.StringSearch
         {
             GetOrCreateChild(keyRest, value);
         }
+
+        public void Remove(string key)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
