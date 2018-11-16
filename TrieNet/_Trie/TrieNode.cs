@@ -65,7 +65,7 @@ namespace Gma.DataStructures.StringSearch
 
         protected override bool BelongsToLongerKey()
         {
-           return m_Children.Count >= 0;
+           return m_Children.Count > 0;
         }
 
         protected override bool HasValue()

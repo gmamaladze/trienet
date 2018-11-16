@@ -18,7 +18,7 @@ namespace Gma.DataStructures.StringSearch.Test
             Trie = CreateTrie();
             for (int i = 0; i < Words40.Length; i++)
             {
-                //Trie.Add(Words40[i], i);
+                Trie.Add(Words40[i], i);
             }
         }
 
@@ -55,6 +55,7 @@ namespace Gma.DataStructures.StringSearch.Test
                                             "prestandard",
                                             "prestandard",
                                             "prestabilism",
+                                            "mega",
                                             "megalocornea",
                                             "megalocephalia",
                                             "megalocephalia",
@@ -471,13 +472,11 @@ namespace Gma.DataStructures.StringSearch.Test
         /// test when a key is a part of a longer key
         /// </summary>
         /// <param name="shorterKey"></param>
-        /// <param name="LongerKey"></param>
+        /// <param name="LongerKey">it takes the longer key to validates if the longer key remained with no change</param>
         [TestCase("unaccord", "unaccordant")]
         [TestCase("koko", "kokoona")]
         public void TestShorterKeyRemove(string shorterKey, string longerKey)
         {
-            Trie.Add(shorterKey, 0);
-            Trie.Add(longerKey, 1);
             int[] shorterKeyBeforeRemoveValues = Trie.Retrieve(shorterKey).ToArray();
             int[] longerKeyBeforeRemoveValues = Trie.Retrieve(longerKey).ToArray();
             Trie.Remove(shorterKey);
@@ -487,10 +486,18 @@ namespace Gma.DataStructures.StringSearch.Test
             Assert.AreEqual(longerKeyAfterRemoveValues.Length, longerKeyBeforeRemoveValues.Length);
         }
 
-        [TestCase("ungivingness", "ungiveable")]
+        [TestCase("ungiveable", "ungive")]
+        [TestCase("megalocornea", "mega")]
+        [TestCase("comolecule", "como")]
         public void TestLongerKeyRemove(string longerKey, string shorterKey)
         {
-
+            int[] shorterKeyBeforeRemoveValues = Trie.Retrieve(shorterKey).ToArray();
+            int[] longerKeyBeforeRemoveValues = Trie.Retrieve(longerKey).ToArray();
+            Trie.Remove(longerKey);
+            int[] shorterKeyAfterRemoveValues = Trie.Retrieve(shorterKey).ToArray();
+            int[] longerKeyAfterRemoveValues = Trie.Retrieve(longerKey).ToArray();
+            Assert.Less(shorterKeyAfterRemoveValues.Length, shorterKeyBeforeRemoveValues.Length);
+            Assert.Less(longerKeyAfterRemoveValues.Length, longerKeyBeforeRemoveValues.Length);
         }
 
 
@@ -513,7 +520,7 @@ namespace Gma.DataStructures.StringSearch.Test
             ITrie<int> trie = CreateTrie();
             foreach (var phrase in Words40)
             {
-                //trie.Add(phrase, phrase.GetHashCode());
+                trie.Add(phrase, phrase.GetHashCode());
             }
 
             stopwatch.Stop();
