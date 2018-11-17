@@ -21,5 +21,10 @@ namespace Gma.DataStructures.StringSearch
         {
             Remove(key, 0);
         }
+
+        public void Update(string key, TValue[] values)
+        {
+            Update(key, 0, values);
+        }
     }
 }

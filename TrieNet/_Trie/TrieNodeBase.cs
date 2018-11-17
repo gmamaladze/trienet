@@ -142,6 +142,26 @@ namespace Gma.DataStructures.StringSearch
         /// <param name="childPosition">the child key position usually the current position + 1</param>
         protected abstract void RemoveChild(string key, int childPosition);
 
-        
+        /// <summary>
+        /// if key exists, update it's values
+        /// if not it will add a new key with this values
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="position"></param>
+        /// <param name="values"></param>
+        public void Update(string key, int position, TValue[] values)
+        {
+            if (key == null) throw new ArgumentNullException("key");
+            if (EndOfString(position, key))
+            {
+                UpdateValues(values);
+                return;
+            }
+
+            TrieNodeBase<TValue> child = GetOrCreateChild(key[position]);
+            child.Update(key, position + 1, values);
+        }
+
+        public abstract void UpdateValues(TValue[] values);
     }
 }

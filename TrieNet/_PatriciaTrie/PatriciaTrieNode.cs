@@ -180,5 +180,10 @@ namespace Gma.DataStructures.StringSearch
         {
             throw new NotImplementedException();
         }
+
+        public override void UpdateValues(TValue[] values)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

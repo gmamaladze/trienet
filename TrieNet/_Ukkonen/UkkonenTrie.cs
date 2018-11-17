@@ -351,5 +351,10 @@ namespace Gma.DataStructures.StringSearch
         {
             throw new NotImplementedException();
         }
+
+        public void Update(string key, T[] values)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

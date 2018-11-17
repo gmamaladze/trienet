@@ -77,5 +77,12 @@ namespace Gma.DataStructures.StringSearch
         {
             m_Children.Remove(key[childPosition]);
         }
+
+        public override void UpdateValues(TValue[] values)
+        {
+            m_Values.Clear();
+            foreach (TValue value in values)
+                AddValue(value);
+        }
     }
 }
