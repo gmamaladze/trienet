@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using NUnit.Framework;
-
+using System.Linq;
 namespace Gma.DataStructures.StringSearch.Test
 {
     [TestFixture]
@@ -64,7 +64,7 @@ namespace Gma.DataStructures.StringSearch.Test
                                             "comolecule",
                                             "comodato",
                                             "comodato",
-                                            "cognoscibility"
+                                            "cognoscibility",
                                         };
 
         [TestCase("d", new[] { 0, 1, 2 })]
@@ -458,6 +458,75 @@ namespace Gma.DataStructures.StringSearch.Test
         {
             IEnumerable<int> actual = Trie.Retrieve(query);
             CollectionAssert.AreEquivalent(expected, actual);
+        }
+
+        /// <summary>
+        /// test when a key is a part of a longer key
+        /// this test make sure that after the shorter key deletion 
+        /// the longer key remain unchanged 
+        /// while the shorter key instance is removed
+        /// </summary>
+        /// <param name="shorterKey"></param>
+        /// <param name="LongerKey">it takes the longer key to validates if the longer key remained with no change</param>
+        /// 
+        [TestCase("procreate", "procreation")]
+        [TestCase("protest", "protestant")]
+        public void TestShorterKeyRemove(string shorterKey, string longerKey)
+        {
+            Trie.Add(shorterKey, 1000);
+            Trie.Add(longerKey, 1001);
+            int[] shorterKeyBeforeRemoveValues = Trie.Retrieve(shorterKey).ToArray();
+            int[] longerKeyBeforeRemoveValues = Trie.Retrieve(longerKey).ToArray();
+            Trie.Remove(shorterKey);
+            int[] shorterKeyAfterRemoveValues = Trie.Retrieve(shorterKey).ToArray();
+            int[] longerKeyAfterRemoveValues = Trie.Retrieve(longerKey).ToArray();
+            Assert.Less(shorterKeyAfterRemoveValues.Length , shorterKeyBeforeRemoveValues.Length);
+            Assert.AreEqual(longerKeyAfterRemoveValues.Length, longerKeyBeforeRemoveValues.Length);
+        }
+
+        [TestCase("testability", "test")]
+        [TestCase("robber", "rob")]
+        [TestCase("rejoiceful", "rejoice")]
+        public void TestLongerKeyRemove(string longerKey, string shorterKey)
+        {
+            Trie.Add(shorterKey, 1002);
+            Trie.Add(longerKey, 1003);
+            int[] shorterKeyBeforeRemoveValues = Trie.Retrieve(shorterKey).ToArray();
+            int[] longerKeyBeforeRemoveValues = Trie.Retrieve(longerKey).ToArray();
+            Trie.Remove(longerKey);
+            int[] shorterKeyAfterRemoveValues = Trie.Retrieve(shorterKey).ToArray();
+            int[] longerKeyAfterRemoveValues = Trie.Retrieve(longerKey).ToArray();
+            Assert.Less(shorterKeyAfterRemoveValues.Length, shorterKeyBeforeRemoveValues.Length);
+            Assert.Less(longerKeyAfterRemoveValues.Length, longerKeyBeforeRemoveValues.Length);
+        }
+
+        [TestCase("zoo")]
+        [TestCase("z")]
+        public void TestUniqueKeyRemove(string key)
+        {
+            Trie.Add(key, 1004);
+            Trie.Remove(key);
+            int[] keyAfterRemoveValues = Trie.Retrieve(key).ToArray();
+            Assert.AreEqual(keyAfterRemoveValues.Length, 0);
+
+        }
+
+        [TestCase("unexistedkey1")]
+        [TestCase("unexistedkey2")]
+        public void TestUnExistedKeyRemove(string key)
+        {
+            Trie.Remove(key);
+        }
+
+        [TestCase("protest", new int[] { 1005, 1006 })]
+        [TestCase("probablility", new int[] { 1007, 1008 })]
+        [TestCase("prepare", new int[] { 1009, 1010 })]
+        public void TestUpdate(string key, int[] values)
+        {
+            Trie.Add(key, 1011);
+            Trie.Update(key, values);
+            foreach(int value in values)
+            Assert.Contains(value, Trie.Retrieve(key).ToArray());
         }
 
         [Test]

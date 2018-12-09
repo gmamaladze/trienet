@@ -160,5 +160,30 @@ namespace Gma.DataStructures.StringSearch
                     Values().Count(),
                     String.Join(";", m_Children.Keys));
         }
+
+        protected override void RemoveValue()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override bool BelongsToLongerKey()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override bool HasValue()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void RemoveChild(string key, int childPosition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateValues(TValue[] values)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

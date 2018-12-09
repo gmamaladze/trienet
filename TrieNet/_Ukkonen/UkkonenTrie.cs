@@ -346,5 +346,15 @@ namespace Gma.DataStructures.StringSearch
         {
             return seq.Length == 0 ? string.Empty : seq.Substring(0, seq.Length - 1);
         }
+
+        public void Remove(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(string key, T[] values)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

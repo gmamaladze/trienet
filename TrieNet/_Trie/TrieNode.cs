@@ -57,5 +57,32 @@ namespace Gma.DataStructures.StringSearch
         {
             m_Values.Enqueue(value);
         }
+
+        protected override void RemoveValue()
+        {
+            m_Values.Clear();
+        }
+
+        protected override bool BelongsToLongerKey()
+        {
+           return m_Children.Count > 0;
+        }
+
+        protected override bool HasValue()
+        {
+            return m_Values.Count > 0;
+        }
+
+        protected override void RemoveChild(string key, int childPosition)
+        {
+            m_Children.Remove(key[childPosition]);
+        }
+
+        public override void UpdateValues(TValue[] values)
+        {
+            m_Values.Clear();
+            foreach (TValue value in values)
+                AddValue(value);
+        }
     }
 }
