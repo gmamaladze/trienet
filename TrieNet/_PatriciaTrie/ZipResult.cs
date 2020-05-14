@@ -1,10 +1,12 @@
 ﻿// This code is distributed under MIT license. Copyright (c) 2013 George Mamaladze
 // See license.txt or http://opensource.org/licenses/mit-license.php
 
+using System;
 using System.Diagnostics;
 
 namespace Gma.DataStructures.StringSearch
 {
+    [Serializable]
     [DebuggerDisplay("Head: '{CommonHead}', This: '{ThisRest}', Other: '{OtherRest}', Kind: {MatchKind}")]
     public struct ZipResult
     {

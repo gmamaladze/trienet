@@ -8,6 +8,7 @@ using System.Text;
 
 namespace Gma.DataStructures.StringSearch
 {
+    [Serializable]
     [DebuggerDisplay("'{m_Key}'")]
     public class PatriciaTrieNode<TValue> : TrieNodeBase<TValue>
     {

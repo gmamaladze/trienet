@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Gma.DataStructures.StringSearch
 {
+    [Serializable]
     public class PatriciaTrie<TValue> :
         PatriciaTrieNode<TValue>,
         ITrie<TValue>

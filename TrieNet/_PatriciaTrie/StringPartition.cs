@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
+    [Serializable]
     [DebuggerDisplay(
         "{m_Origin.Substring(0,m_StartIndex)} [ {m_Origin.Substring(m_StartIndex,m_PartitionLength)} ] {m_Origin.Substring(m_StartIndex + m_PartitionLength)}"
         )]

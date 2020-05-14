@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace Gma.DataStructures.StringSearch
 {
+    [Serializable]
     public class TrieNode<TValue> : TrieNodeBase<TValue>
     {
         private readonly Dictionary<char, TrieNode<TValue>> m_Children;
