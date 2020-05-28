@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace Gma.DataStructures.StringSearch
 {
+    [Serializable]
     public class ConcurrentTrieNode<TValue> : TrieNodeBase<TValue>
     {
         private readonly ConcurrentDictionary<char, ConcurrentTrieNode<TValue>> m_Children;

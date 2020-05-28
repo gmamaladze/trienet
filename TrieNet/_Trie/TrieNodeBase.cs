@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
+    [Serializable]
     public abstract class TrieNodeBase<TValue>
     {
         protected abstract int KeyLength { get; }
