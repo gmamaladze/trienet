@@ -103,7 +103,7 @@ Class|Description
 `SuffixPatriciaTrie` | the same as PatriciaTrie, also enabling infix search.
 `ParallelTrie` | very primitively implemented parallel data structure which allows adding data and retriving results from different threads simultaneusly.
 
-## preformance
+## performance
 
 Important: all diagrams are given in logarithmic scale on x-axis.
 
