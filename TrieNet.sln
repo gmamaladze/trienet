@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32408.312
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80B41D2C-7608-4824-A6E5-C009C65F8561}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,9 +16,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleConsoleApp", "SampleC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "DemoApp\DemoApp.csproj", "{7C2CFF68-CFCD-4069-8EB4-FF136084DE1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrieNet", "TrieNet\TrieNet.csproj", "{1A60C4E2-8E02-48C4-BAFA-8EA0FE1BAE5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrieNet", "TrieNet\TrieNet.csproj", "{1A60C4E2-8E02-48C4-BAFA-8EA0FE1BAE5E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrieNet.Test", "TrieNet.Test\TrieNet.Test.csproj", "{84284C14-F2EE-47E1-AD63-E001A98D5954}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp2", "DemoApp2\DemoApp2.csproj", "{3B82BB93-FD1B-48E9-936A-FECE89810B16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,14 @@ Global
 		{84284C14-F2EE-47E1-AD63-E001A98D5954}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84284C14-F2EE-47E1-AD63-E001A98D5954}.Release|x86.ActiveCfg = Release|Any CPU
 		{84284C14-F2EE-47E1-AD63-E001A98D5954}.Release|x86.Build.0 = Release|Any CPU
+		{3B82BB93-FD1B-48E9-936A-FECE89810B16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B82BB93-FD1B-48E9-936A-FECE89810B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B82BB93-FD1B-48E9-936A-FECE89810B16}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3B82BB93-FD1B-48E9-936A-FECE89810B16}.Debug|x86.Build.0 = Debug|Any CPU
+		{3B82BB93-FD1B-48E9-936A-FECE89810B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B82BB93-FD1B-48E9-936A-FECE89810B16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B82BB93-FD1B-48E9-936A-FECE89810B16}.Release|x86.ActiveCfg = Release|Any CPU
+		{3B82BB93-FD1B-48E9-936A-FECE89810B16}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +76,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{AA86F904-90E5-407F-87B6-688ED8A2FF85} = {4186BBA3-FBD8-408B-AF5A-2848A4073DD1}
 		{7C2CFF68-CFCD-4069-8EB4-FF136084DE1B} = {4186BBA3-FBD8-408B-AF5A-2848A4073DD1}
+		{3B82BB93-FD1B-48E9-936A-FECE89810B16} = {4186BBA3-FBD8-408B-AF5A-2848A4073DD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C570FD29-9F0C-417A-BB07-2135E30E76F3}
