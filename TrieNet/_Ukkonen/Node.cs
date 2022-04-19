@@ -45,7 +45,7 @@ namespace Gma.DataStructures.StringSearch
                 if (iter._data.Contains(value))
                     break;
 
-                iter.AddRef(value);
+                iter._data.Add(value);
                 iter = iter.Suffix;
             }
         }
