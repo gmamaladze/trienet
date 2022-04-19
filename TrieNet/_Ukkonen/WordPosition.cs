@@ -2,7 +2,7 @@
 // See license.txt or http://opensource.org/licenses/mit-license.php
 
 namespace Gma.DataStructures.StringSearch {
-    public class WordPosition<T>
+    public struct WordPosition<T>
     {
         private readonly long m_CharPosition;
         private readonly T m_Value;

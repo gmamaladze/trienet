@@ -27,7 +27,7 @@ namespace DemoApp2 {
 
         private void LoadFile(string fileName) {
             var word = File.ReadAllText(fileName);
-            m_Trie.Add(word, fileName);
+            m_Trie.Add(word, Path.GetFileName(fileName));
             /*Tuple<WordPosition, string>[] words = GetWords(fileName).ToArray();
             foreach (var word in words) {
                 string text = word.Item2;
@@ -81,24 +81,25 @@ namespace DemoApp2 {
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e) {
-            var item = listBox1.SelectedItem as WordPosition<string>;
-            if (item == null) return;
-            using (FileStream file = File.Open(item.Value, FileMode.Open)) {
-                const int bifferSize = 300;
-                long position = Math.Max(item.CharPosition - bifferSize / 2, 0);
-                file.Seek(position, SeekOrigin.Begin);
-                var buffer = new byte[bifferSize];
-                file.Read(buffer, 0, bifferSize);
-                string line = Encoding.ASCII.GetString(buffer);
-                richTextBox1.Text = line;
+            var item = (WordPosition<string>)listBox1.SelectedItem;
+            var word = File.ReadAllText(Path.Combine("texts", item.Value));
+            //if (item == null) return;
+            //using (FileStream file = File.Open(Path.Combine("texts", item.Value), FileMode.Open)) {
+            const int bifferSize = 300;
+            int position = Math.Max((int)item.CharPosition - bifferSize / 2, 0);
+            //file.Seek(position, SeekOrigin.Begin);
+            //var buffer = new byte[bifferSize];
+            //file.Read(buffer, 0, bifferSize);
+            //string line = Encoding.ASCII.GetString(buffer);
+            string line = word.Substring(position, bifferSize);
+            richTextBox1.Text = line;
 
-                string serachText = textBox1.Text;
-                int index = richTextBox1.Text.IndexOf(serachText, StringComparison.InvariantCultureIgnoreCase);
-                if (index < 0) return;
-                richTextBox1.Select(index, serachText.Length);
-                richTextBox1.SelectionBackColor = Color.Yellow;
-                richTextBox1.DeselectAll();
-            }
+            string serachText = textBox1.Text;
+            int index = richTextBox1.Text.IndexOf(serachText, StringComparison.InvariantCultureIgnoreCase);
+            if (index < 0) return;
+            richTextBox1.Select(index, serachText.Length);
+            richTextBox1.SelectionBackColor = Color.Yellow;
+            richTextBox1.DeselectAll();
         }
 
         private void buttonBrowse_Click(object sender, EventArgs e) {
