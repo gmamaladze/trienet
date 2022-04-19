@@ -29,6 +29,12 @@ namespace Gma.DataStructures.StringSearch
             get { return m_MinQueryLength; }
         }
 
+        public long Size {
+            get {
+                return m_InnerTrie.Size();
+            }
+        }
+
         public IEnumerable<TValue> Retrieve(string query)
         {
             return

@@ -18,7 +18,13 @@ namespace Gma.DataStructures.StringSearch
             _data = new HashSet<T>();
         }
 
-       
+        public IEnumerable<Node<T>> Children() {
+            return _edges.Values.Select(e => e.Target);
+        }
+
+        public long Size() {
+            return Children().Sum(o => o.Size()) + 1;
+        }
 
         public IEnumerable<T> GetData()
         {

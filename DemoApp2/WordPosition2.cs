@@ -3,12 +3,12 @@
 using System.IO;
 
 namespace DemoApp2 {
-    internal class WordPosition
+    internal class WordPosition2
     {
         private readonly long m_CharPosition;
         private readonly string m_FileName;
 
-        public WordPosition(long charPosition, string fileName)
+        public WordPosition2(long charPosition, string fileName)
         {
             m_CharPosition = charPosition;
             m_FileName = fileName;

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
-    public class UkkonenTrie<T> : ITrie<T>
+    public class UkkonenTrie<T>// : ITrie<T>
     {
         private readonly int _minSuffixLength;
 
         //The root of the suffix tree
-        private readonly Node<T> _root;
+        private readonly Node<WordPosition<T>> _root;
 
         //The last leaf that was added during the update operation
-        private Node<T> _activeLeaf;
+        private Node<WordPosition<T>> _activeLeaf;
 
         public UkkonenTrie() : this(0)
         {
@@ -21,16 +22,22 @@ namespace Gma.DataStructures.StringSearch
         public UkkonenTrie(int minSuffixLength) 
         {
             _minSuffixLength = minSuffixLength;
-            _root = new Node<T>();
+            _root = new Node<WordPosition<T>>();
             _activeLeaf = _root;
         }
 
-        public IEnumerable<T> Retrieve(string word)
+        public long Size {
+            get {
+                return _root.Size();
+            }
+        }
+
+        public IEnumerable<WordPosition<T>> Retrieve(string word)
         {
-            if (word.Length < _minSuffixLength) return Enumerable.Empty<T>();
+            if (word.Length < _minSuffixLength) return Enumerable.Empty<WordPosition<T>>();
             var tmpNode = SearchNode(word);
             return tmpNode == null 
-                ? Enumerable.Empty<T>() 
+                ? Enumerable.Empty<WordPosition<T>>() 
                 : tmpNode.GetData();
         }
 
@@ -49,7 +56,7 @@ namespace Gma.DataStructures.StringSearch
         /**
          * Returns the tree NodeA<T> (if present) that corresponds to the given string.
          */
-        private Node<T> SearchNode(string word)
+        private Node<WordPosition<T>> SearchNode(string word)
         {
             /*
              * Verifies if exists a path from the root to a NodeA<T> such that the concatenation
@@ -110,7 +117,7 @@ namespace Gma.DataStructures.StringSearch
                 //text = text.Intern();
 
                 // line 7: update the tree with the new transitions due to this new char
-                var active = Update(s, text, remainder.Substring(i), value);
+                var active = Update(s, text, remainder.Substring(i), new WordPosition<T>(i, value));
                 // line 8: make sure the active Tuple is canonical
                 active = Canonize(active.Item1, active.Item2);
 
@@ -146,7 +153,7 @@ namespace Gma.DataStructures.StringSearch
          *                  the last NodeA<T> that can be reached by following the path denoted by stringPart starting from inputs
          *         
          */
-        private static Tuple<bool, Node<T>> TestAndSplit(Node<T> inputs, string stringPart, char t, string remainder, T value)
+        private static Tuple<bool, Node<WordPosition<T>>> TestAndSplit(Node<WordPosition<T>> inputs, string stringPart, char t, string remainder, WordPosition<T> value)
         {
             // descend the tree as far as possible
             var ret = Canonize(inputs, stringPart);
@@ -161,16 +168,16 @@ namespace Gma.DataStructures.StringSearch
                 // must see whether "str" is substring of the label of an EdgeA<T>
                 if (label.Length > str.Length && label[str.Length] == t)
                 {
-                    return new Tuple<bool, Node<T>>(true, s);
+                    return new Tuple<bool, Node<WordPosition<T>>>(true, s);
                 }
                 // need to split the EdgeA<T>
                 var newlabel = label.Substring(str.Length);
                 //assert (label.startsWith(str));
 
                 // build a new NodeA<T>
-                var r = new Node<T>();
+                var r = new Node<WordPosition<T>>();
                 // build a new EdgeA<T>
-                var newedge = new Edge<T>(str, r);
+                var newedge = new Edge<WordPosition<T>>(str, r);
 
                 g.Label = newlabel;
 
@@ -178,37 +185,37 @@ namespace Gma.DataStructures.StringSearch
                 r.AddEdge(newlabel[0], g);
                 s.AddEdge(str[0], newedge);
 
-                return new Tuple<bool, Node<T>>(false, r);
+                return new Tuple<bool, Node<WordPosition<T>>>(false, r);
             }
             var e = s.GetEdge(t);
             if (null == e)
             {
                 // if there is no t-transtion from s
-                return new Tuple<bool, Node<T>>(false, s);
+                return new Tuple<bool, Node<WordPosition<T>>>(false, s);
             }
             if (remainder.Equals(e.Label))
             {
                 // update payload of destination NodeA<T>
                 e.Target.AddRef(value);
-                return new Tuple<bool, Node<T>>(true, s);
+                return new Tuple<bool, Node<WordPosition<T>>>(true, s);
             }
             if (remainder.StartsWith(e.Label))
             {
-                return new Tuple<bool, Node<T>>(true, s);
+                return new Tuple<bool, Node<WordPosition<T>>>(true, s);
             }
             if (!e.Label.StartsWith(remainder))
             {
-                return new Tuple<bool, Node<T>>(true, s);
+                return new Tuple<bool, Node<WordPosition<T>>>(true, s);
             }
             // need to split as above
-            var newNode = new Node<T>();
+            var newNode = new Node<WordPosition<T>>();
             newNode.AddRef(value);
 
-            var newEdge = new Edge<T>(remainder, newNode);
+            var newEdge = new Edge<WordPosition<T>>(remainder, newNode);
             e.Label = e.Label.Substring(remainder.Length);
             newNode.AddEdge(e.Label[0], e);
             s.AddEdge(t, newEdge);
-            return new Tuple<bool, Node<T>>(false, s);
+            return new Tuple<bool, Node<WordPosition<T>>>(false, s);
             // they are different words. No prefix. but they may still share some common substr
         }
 
@@ -218,18 +225,18 @@ namespace Gma.DataStructures.StringSearch
          * a prefix of inputstr and remainder will be string that must be
          * appended to the concatenation of labels from s to n to get inpustr.
          */
-        private static Tuple<Node<T>, string> Canonize(Node<T> s, string inputstr)
+        private static Tuple<Node<WordPosition<T>>, string> Canonize(Node<WordPosition<T>> s, string inputstr)
         {
 
             if (string.Empty.Equals(inputstr))
             {
-                return new Tuple<Node<T>, string>(s, inputstr);
+                return new Tuple<Node<WordPosition<T>>, string>(s, inputstr);
             }
             var currentNode = s;
             var str = inputstr;
             var g = s.GetEdge(str[0]);
             // descend the tree as long as a proper label is found
-            while (g != null && str.StartsWith(g.Label))
+            while (g != null && str.Length >= g.Label.Length && str.StartsWith(g.Label))
             {
                 str = str.Substring(g.Label.Length);
                 currentNode = g.Target;
@@ -239,7 +246,7 @@ namespace Gma.DataStructures.StringSearch
                 }
             }
 
-            return new Tuple<Node<T>, string>(currentNode, str);
+            return new Tuple<Node<WordPosition<T>>, string>(currentNode, str);
         }
 
         /**
@@ -258,7 +265,7 @@ namespace Gma.DataStructures.StringSearch
          * @param rest the rest of the string
          * @param value the value to add to the index
          */
-        private Tuple<Node<T>, string> Update(Node<T> inputNode, string stringPart, string rest, T value)
+        private Tuple<Node<WordPosition<T>>, string> Update(Node<WordPosition<T>> inputNode, string stringPart, string rest, WordPosition<T> value)
         {
             var s = inputNode;
             var tempstr = stringPart;
@@ -278,7 +285,7 @@ namespace Gma.DataStructures.StringSearch
             {
                 // line 3
                 var tempEdge = r.GetEdge(newChar);
-                Node<T> leaf;
+                Node<WordPosition<T>> leaf;
                 if (null != tempEdge)
                 {
                     // such a NodeA<T> is already present. This is one of the main differences from Ukkonen's case:
@@ -288,9 +295,9 @@ namespace Gma.DataStructures.StringSearch
                 else
                 {
                     // must build a new leaf
-                    leaf = new Node<T>();
+                    leaf = new Node<WordPosition<T>>();
                     leaf.AddRef(value);
-                    var newedge = new Edge<T>(rest, leaf);
+                    var newedge = new Edge<WordPosition<T>>(rest, leaf);
                     r.AddEdge(newChar, newedge);
                 }
 
@@ -339,7 +346,7 @@ namespace Gma.DataStructures.StringSearch
                 oldroot.Suffix = r;
             }
 
-            return new Tuple<Node<T>, string>(s, tempstr);
+            return new Tuple<Node<WordPosition<T>>, string>(s, tempstr);
         }
 
         private static string SafeCutLastChar(string seq)

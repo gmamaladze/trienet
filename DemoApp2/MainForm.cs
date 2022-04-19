@@ -3,6 +3,7 @@
 using Gma.DataStructures.StringSearch;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -11,12 +12,12 @@ using System.Windows.Forms;
 
 namespace DemoApp2 {
     public partial class MainForm : Form {
-        private readonly ITrie<WordPosition> m_PatriciaTrie;
+        private readonly UkkonenTrie<string> m_Trie;
         private long m_WordCount;
 
         public MainForm() {
             InitializeComponent();
-            m_PatriciaTrie = new PatriciaSuffixTrie<WordPosition>(3);
+            m_Trie = new UkkonenTrie<string>(3);
             //m_PatriciaTrie = new FakeTrie<WordPosition>();
             folderName.Text =
                 Path.Combine(
@@ -25,18 +26,20 @@ namespace DemoApp2 {
         }
 
         private void LoadFile(string fileName) {
-            //var word = File.ReadAllText(fileName);
-            //m_PatriciaTrie.Add(word, new WordPosition(0, fileName));
-            Tuple<WordPosition, string>[] words = GetWords(fileName).ToArray();
+            var word = File.ReadAllText(fileName);
+            m_Trie.Add(word, fileName);
+            /*Tuple<WordPosition, string>[] words = GetWords(fileName).ToArray();
             foreach (var word in words) {
                 string text = word.Item2;
                 WordPosition wordPosition = word.Item1;
-                m_PatriciaTrie.Add(text, wordPosition);
-            }
+                m_Trie.Add(text, wordPosition);
+            }*/
+            Debug.WriteLine($"trie size = {m_Trie.Size}");
+            Debug.WriteLine($"num chars = {word.Length}");
         }
 
 
-        private IEnumerable<Tuple<WordPosition, string>> GetWords(string file) {
+        private IEnumerable<Tuple<WordPosition2, string>> GetWords(string file) {
             using (Stream stream = File.Open(file, FileMode.Open)) {
                 var word = new StringBuilder();
                 while (true) {
@@ -45,12 +48,12 @@ namespace DemoApp2 {
                     {
                         if (data > byte.MaxValue) break;
                         var ch = (Char)data;
-                        if (char.IsLetter(ch) || word.Length < 50) {
+                        if (char.IsLetter(ch) || char.IsWhiteSpace(ch)) {
                             word.Append(ch);
                         } else {
                             if (word.Length != 0) {
-                                var wordPosition = new WordPosition(position, file);
-                                yield return new Tuple<WordPosition, string>(wordPosition, word.ToString().ToLower());
+                                var wordPosition = new WordPosition2(position, file);
+                                yield return new Tuple<WordPosition2, string>(wordPosition, word.ToString().ToLower());
                                 word.Clear();
                                 m_WordCount++;
                             }
@@ -70,17 +73,17 @@ namespace DemoApp2 {
         private void textBox1_TextChanged(object sender, EventArgs e) {
             string text = textBox1.Text;
             if (string.IsNullOrEmpty(text) || text.Length < 3) return;
-            WordPosition[] result = m_PatriciaTrie.Retrieve(text).ToArray();
+            var result = m_Trie.Retrieve(text).ToArray();
             listBox1.Items.Clear();
-            foreach (WordPosition wordPosition in result) {
+            foreach (var wordPosition in result) {
                 listBox1.Items.Add(wordPosition);
             }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e) {
-            var item = listBox1.SelectedItem as WordPosition;
+            var item = listBox1.SelectedItem as WordPosition<string>;
             if (item == null) return;
-            using (FileStream file = File.Open(item.FileName, FileMode.Open)) {
+            using (FileStream file = File.Open(item.Value, FileMode.Open)) {
                 const int bifferSize = 300;
                 long position = Math.Max(item.CharPosition - bifferSize / 2, 0);
                 file.Seek(position, SeekOrigin.Begin);

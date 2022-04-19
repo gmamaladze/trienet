@@ -23,6 +23,12 @@ namespace Gma.DataStructures.StringSearch
             m_MinSuffixLength = minSuffixLength;
         }
 
+        public long Size {
+            get {
+                return m_InnerTrie.Size();
+            }
+        }
+
         public IEnumerable<T> Retrieve(string query)
         {
             return
