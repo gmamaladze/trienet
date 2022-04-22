@@ -31,7 +31,12 @@ namespace Gma.DataStructures.StringSearch
             }
         }
 
-        public IEnumerable<WordPosition<T>> Retrieve(string word)
+        public IEnumerable<T> Retrieve(string word)
+        {
+            return RetrieveSubstrings(word).Select(o => o.Value);
+        }
+
+        public IEnumerable<WordPosition<T>> RetrieveSubstrings(string word)
         {
             if (word.Length < _minSuffixLength) return Enumerable.Empty<WordPosition<T>>();
             var tmpNode = SearchNode(word);
