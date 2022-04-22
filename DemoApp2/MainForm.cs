@@ -1,14 +1,7 @@
 // This code is distributed under MIT license. Copyright (c) 2013 George Mamaladze
 // See license.txt or http://opensource.org/licenses/mit-license.php
 using Gma.DataStructures.StringSearch;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 
 namespace DemoApp2 {
     public partial class MainForm : Form {
@@ -104,6 +97,7 @@ namespace DemoApp2 {
                 UpdateProgress(index + 1);
             }
             progressText.Text = string.Format("{0:n0} words read. Ready.", m_WordCount);
+            UpdateProgress(0);
         }
     }
 }
