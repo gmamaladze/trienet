@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
-    public class UkkonenTrie<T>// : ITrie<T>
+    public class UkkonenTrie<T> : ISuffixTrie<T>
     {
         private readonly int _minSuffixLength;
 

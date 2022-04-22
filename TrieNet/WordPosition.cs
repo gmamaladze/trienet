@@ -2,29 +2,24 @@
 // See license.txt or http://opensource.org/licenses/mit-license.php
 
 namespace Gma.DataStructures.StringSearch {
-    public struct WordPosition<T>
-    {
+    public struct WordPosition<T> {
         private readonly long m_CharPosition;
         private readonly T m_Value;
 
-        public WordPosition(long charPosition, T value)
-        {
+        public WordPosition(long charPosition, T value) {
             m_CharPosition = charPosition;
             m_Value = value;
         }
 
-        public T Value
-        {
+        public T Value {
             get { return m_Value; }
         }
 
-        public long CharPosition
-        {
+        public long CharPosition {
             get { return m_CharPosition; }
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return
                 string.Format(
                     "( Pos {0} ) {1}",

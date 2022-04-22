@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
-    
-    
     internal class Node<T>
     {
         private readonly IDictionary<char, Edge<T>> _edges;
