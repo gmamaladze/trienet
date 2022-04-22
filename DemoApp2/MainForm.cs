@@ -13,12 +13,12 @@ using System.Windows.Forms;
 namespace DemoApp2 {
     public partial class MainForm : Form {
         private readonly UkkonenTrie<string> m_Trie;
+        private static readonly char[] delimiters = new char[] { ' ', '\r', '\n' };
         private long m_WordCount;
 
         public MainForm() {
             InitializeComponent();
             m_Trie = new UkkonenTrie<string>(3);
-            //m_PatriciaTrie = new FakeTrie<WordPosition>();
             folderName.Text =
                 Path.Combine(
                     Directory.GetCurrentDirectory(),
@@ -28,45 +28,13 @@ namespace DemoApp2 {
         private void LoadFile(string fileName) {
             var word = File.ReadAllText(fileName);
             m_Trie.Add(word, Path.GetFileName(fileName));
-            /*Tuple<WordPosition, string>[] words = GetWords(fileName).ToArray();
-            foreach (var word in words) {
-                string text = word.Item2;
-                WordPosition wordPosition = word.Item1;
-                m_Trie.Add(text, wordPosition);
-            }*/
-            Debug.WriteLine($"trie size = {m_Trie.Size}");
-            Debug.WriteLine($"num chars = {word.Length}");
+            m_WordCount += word.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length;
+            Debug.WriteLine($"Loaded {word.Length} characters.");
+            Debug.WriteLine($"Trie size = {m_Trie.Size}");
         }
 
-
-        private IEnumerable<Tuple<WordPosition2, string>> GetWords(string file) {
-            using (Stream stream = File.Open(file, FileMode.Open)) {
-                var word = new StringBuilder();
-                while (true) {
-                    long position = stream.Position;
-                    int data = (char)stream.ReadByte();
-                    {
-                        if (data > byte.MaxValue) break;
-                        var ch = (Char)data;
-                        if (char.IsLetter(ch) || char.IsWhiteSpace(ch)) {
-                            word.Append(ch);
-                        } else {
-                            if (word.Length != 0) {
-                                var wordPosition = new WordPosition2(position, file);
-                                yield return new Tuple<WordPosition2, string>(wordPosition, word.ToString().ToLower());
-                                word.Clear();
-                                m_WordCount++;
-                            }
-                        }
-                    }
-                    UpdateProgress(position);
-                }
-            }
-        }
-
-        private void UpdateProgress(long position) {
-            if (position % 1024 != 0) return;
-            progressBar1.Value = Math.Min((int)position / 1024 * 2, progressBar1.Maximum);
+        private void UpdateProgress(int position) {
+            progressBar1.Value = Math.Min(position, progressBar1.Maximum);
             Application.DoEvents();
         }
 
@@ -120,20 +88,20 @@ namespace DemoApp2 {
             if (!Directory.Exists(path)) return;
             string[] files = Directory.GetFiles(path, "*.txt", SearchOption.AllDirectories);
             progressBar1.Minimum = 0;
+            progressBar1.Maximum = files.Length;
             progressBar1.Step = 1;
             for (int index = 0; index < files.Length; index++) {
                 string file = files[index];
                 progressText.Text =
                     string.Format(
                         "Processing file {0} of {1}: [{2}]",
-                        index,
+                        index + 1,
                         files.Length,
                         Path.GetFileName(file));
+                Application.DoEvents();
 
-                var fileInfo = new FileInfo(file);
-                progressBar1.Maximum = (int)fileInfo.Length / 1024;
                 LoadFile(file);
-                progressBar1.Value = 0;
+                UpdateProgress(index + 1);
             }
             progressText.Text = string.Format("{0:n0} words read. Ready.", m_WordCount);
         }
