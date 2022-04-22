@@ -44,14 +44,8 @@ namespace DemoApp2 {
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e) {
             var item = (WordPosition<string>)listBox1.SelectedItem;
             var word = File.ReadAllText(Path.Combine("texts", item.Value));
-            //if (item == null) return;
-            //using (FileStream file = File.Open(Path.Combine("texts", item.Value), FileMode.Open)) {
             const int bifferSize = 300;
             int position = Math.Max((int)item.CharPosition - bifferSize / 2, 0);
-            //file.Seek(position, SeekOrigin.Begin);
-            //var buffer = new byte[bifferSize];
-            //file.Read(buffer, 0, bifferSize);
-            //string line = Encoding.ASCII.GetString(buffer);
             string line = word.Substring(position, bifferSize);
             richTextBox1.Text = line;
 
