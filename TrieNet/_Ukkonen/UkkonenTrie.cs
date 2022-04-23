@@ -6,7 +6,7 @@ namespace Gma.DataStructures.StringSearch
 {
     public class UkkonenTrie<K, T> : IGenericSuffixTrie<K, T> where K : IEquatable<K>
     {
-        private readonly int _minSuffixLength;
+        protected readonly int _minSuffixLength;
 
         //The root of the suffix tree
         private readonly Node<K, WordPosition<T>> _root;

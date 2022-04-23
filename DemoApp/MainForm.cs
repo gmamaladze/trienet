@@ -34,7 +34,7 @@ namespace Gma.DataStructures.StringSearch.DemoApp {
         private void textBox1_TextChanged(object sender, EventArgs e) {
             string text = textBox1.Text;
             if (string.IsNullOrEmpty(text) || text.Length < 3) return;
-            var result = m_Trie.RetrieveSubstrings(text.AsMemory()).ToArray();
+            var result = m_Trie.RetrieveSubstrings(text.AsSpan()).ToArray();
             listBox1.Items.Clear();
             foreach (var wordPosition in result) {
                 listBox1.Items.Add(wordPosition);

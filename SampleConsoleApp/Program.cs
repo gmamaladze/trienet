@@ -35,7 +35,7 @@ namespace Gma.DataStructures.StringSearch.SampleConsoleApp
             Console.ReadKey();
         }
 
-        private static void BuildUp(string fileName, ISuffixTrie<char, int> trie)
+        private static void BuildUp(string fileName, IGenericSuffixTrie<char, int> trie)
         {
             IEnumerable<WordAndLine> allWordsInFile = GetWordsFromFile(fileName);
             int i = 0;
@@ -45,14 +45,14 @@ namespace Gma.DataStructures.StringSearch.SampleConsoleApp
             }
         }
 
-        private static void LookUp(string searchString, ISuffixTrie<char, int> trie)
+        private static void LookUp(string searchString, IGenericSuffixTrie<char, int> trie)
         {
             Console.WriteLine("----------------------------------------");
             Console.WriteLine("Look-up for string '{0}'", searchString);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            var result = trie.RetrieveSubstrings(searchString.AsMemory()).ToArray();
+            var result = trie.RetrieveSubstrings(searchString.AsSpan()).ToArray();
             stopWatch.Stop();
 
             string matchesText = String.Join(",", result);
