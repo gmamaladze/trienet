@@ -7,7 +7,7 @@ using System.Linq;
 namespace Gma.DataStructures.StringSearch
 {
     [Serializable]
-    public class SuffixTrie<T> : ISuffixTrie<T>
+    public class SuffixTrie<T>// : ISuffixTrie<T>
     {
         private readonly Trie<WordPosition<T>> m_InnerTrie;
         private readonly int m_MinSuffixLength;

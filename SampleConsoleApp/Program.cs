@@ -7,7 +7,7 @@ namespace Gma.DataStructures.StringSearch.SampleConsoleApp
     {
         private static void Main(string[] args)
         {
-            var trie = new UkkonenTrie<int>(0);
+            var trie = new UkkonenTrie<char, int>(0);
             //You can replace it with other trie data structures too 
             //ITrie<int> trie = new Trie<int>();
             //ITrie<int> trie = new PatriciaSuffixTrie<int>(3);
@@ -35,23 +35,24 @@ namespace Gma.DataStructures.StringSearch.SampleConsoleApp
             Console.ReadKey();
         }
 
-        private static void BuildUp(string fileName, ISuffixTrie<int> trie)
+        private static void BuildUp(string fileName, ISuffixTrie<char, int> trie)
         {
             IEnumerable<WordAndLine> allWordsInFile = GetWordsFromFile(fileName);
+            int i = 0;
             foreach (WordAndLine wordAndLine in allWordsInFile)
             {
-                trie.Add(wordAndLine.Word, wordAndLine.Line);
+                trie.Add(wordAndLine.Word.AsMemory(), ++i);
             }
         }
 
-        private static void LookUp(string searchString, ISuffixTrie<int> trie)
+        private static void LookUp(string searchString, ISuffixTrie<char, int> trie)
         {
             Console.WriteLine("----------------------------------------");
             Console.WriteLine("Look-up for string '{0}'", searchString);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            var result = trie.RetrieveSubstrings(searchString).ToArray();
+            var result = trie.RetrieveSubstrings(searchString.AsMemory()).ToArray();
             stopWatch.Stop();
 
             string matchesText = String.Join(",", result);

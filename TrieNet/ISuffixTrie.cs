@@ -1,5 +1,6 @@
 // This code is distributed under MIT license. Copyright (c) 2013 George Mamaladze
 // See license.txt or http://opensource.org/licenses/mit-license.php
+using System;
 using System.Collections.Generic;
 
 namespace Gma.DataStructures.StringSearch
@@ -10,8 +11,8 @@ namespace Gma.DataStructures.StringSearch
     /// The interface allows retrieval of multiple values along with their positions.
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
-    public interface ISuffixTrie<TValue> : ITrie<TValue>
+    public interface ISuffixTrie<K, TValue> : ITrie<K, TValue> where K : IEquatable<K>
     {
-        IEnumerable<WordPosition<TValue>> RetrieveSubstrings(string query);
+        IEnumerable<WordPosition<TValue>> RetrieveSubstrings(ReadOnlyMemory<K> query);
     }
 }

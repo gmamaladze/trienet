@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Gma.DataStructures.StringSearch
 {
     [Serializable]
-    public class Trie<TValue> : TrieNode<TValue>, ITrie<TValue>
+    public class Trie<TValue> : TrieNode<TValue>//, ITrie<TValue>
     {
         public IEnumerable<TValue> Retrieve(string query)
         {

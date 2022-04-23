@@ -7,7 +7,7 @@ using System.Linq;
 namespace Gma.DataStructures.StringSearch
 {
     [Serializable]
-    public class PatriciaSuffixTrie<TValue> : ISuffixTrie<TValue>
+    public class PatriciaSuffixTrie<TValue>// : ISuffixTrie<TValue>
     {
         private readonly int m_MinQueryLength;
         private readonly PatriciaTrie<WordPosition<TValue>> m_InnerTrie;
