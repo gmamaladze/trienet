@@ -2,16 +2,16 @@
 
 namespace Gma.DataStructures.StringSearch
 {
-    internal class Edge<T>
+    internal class Edge<K, T>
     {
-        public Edge(ReadOnlyMemory<char> label, Node<T> target)
+        public Edge(ReadOnlyMemory<K> label, Node<K, T> target)
         {
             this.Label = label;
             this.Target = target;
         }
 
-        public ReadOnlyMemory<char> Label { get; set; }
+        public ReadOnlyMemory<K> Label { get; set; }
 
-        public Node<T> Target { get; private set; }
+        public Node<K, T> Target { get; private set; }
     }
 }

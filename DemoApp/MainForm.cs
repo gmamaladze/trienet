@@ -5,13 +5,13 @@ using System.Diagnostics;
 
 namespace Gma.DataStructures.StringSearch.DemoApp {
     public partial class MainForm : Form {
-        private readonly UkkonenTrie<string> m_Trie;
+        private readonly UkkonenTrie<char, string> m_Trie;
         private static readonly char[] delimiters = new char[] { ' ', '\r', '\n' };
         private long m_WordCount;
 
         public MainForm() {
             InitializeComponent();
-            m_Trie = new UkkonenTrie<string>(3);
+            m_Trie = new UkkonenTrie<char, string>(3);
             folderName.Text =
                 Path.Combine(
                     Directory.GetCurrentDirectory(),
@@ -20,7 +20,7 @@ namespace Gma.DataStructures.StringSearch.DemoApp {
 
         private void LoadFile(string fileName) {
             var word = File.ReadAllText(fileName);
-            m_Trie.Add(word, Path.GetFileName(fileName));
+            m_Trie.Add(word.AsMemory(), Path.GetFileName(fileName));
             m_WordCount += word.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length;
             Debug.WriteLine($"Loaded {word.Length} characters.");
             Debug.WriteLine($"Trie size = {m_Trie.Size}");
@@ -34,7 +34,7 @@ namespace Gma.DataStructures.StringSearch.DemoApp {
         private void textBox1_TextChanged(object sender, EventArgs e) {
             string text = textBox1.Text;
             if (string.IsNullOrEmpty(text) || text.Length < 3) return;
-            var result = m_Trie.RetrieveSubstrings(text).ToArray();
+            var result = m_Trie.RetrieveSubstrings(text.AsSpan()).ToArray();
             listBox1.Items.Clear();
             foreach (var wordPosition in result) {
                 listBox1.Items.Add(wordPosition);

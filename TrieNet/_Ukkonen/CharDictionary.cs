@@ -2,7 +2,7 @@
 
 namespace Gma.DataStructures.StringSearch
 {
-    internal class CharDictionary<T> : Dictionary<char, Edge<T>>
+    internal class CharDictionary<K, T> : Dictionary<K, Edge<K, T>>
     {
         //TODO Consider using sorted list based implementation to save memory
     }

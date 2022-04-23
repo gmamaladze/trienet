@@ -3,19 +3,19 @@ using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
-    internal class Node<T>
+    internal class Node<K, T>
     {
-        private readonly IDictionary<char, Edge<T>> _edges;
+        private readonly IDictionary<K, Edge<K, T>> _edges;
         private readonly HashSet<T> _data;
 
         public Node()
         {
-            _edges = new CharDictionary<T>();
+            _edges = new CharDictionary<K, T>();
             Suffix = null;
             _data = new HashSet<T>();
         }
 
-        public IEnumerable<Node<T>> Children() {
+        public IEnumerable<Node<K, T>> Children() {
             return _edges.Values.Select(e => e.Target);
         }
 
@@ -47,18 +47,18 @@ namespace Gma.DataStructures.StringSearch
             }
         }
 
-        public void AddEdge(char ch, Edge<T> e)
+        public void AddEdge(K ch, Edge<K, T> e)
         {
             _edges[ch] = e;
         }
 
-        public Edge<T> GetEdge(char ch)
+        public Edge<K, T> GetEdge(K ch)
         {
-            Edge<T> result;
+            Edge<K, T> result;
             _edges.TryGetValue(ch, out result);
             return result;
         }
 
-        public Node<T> Suffix { get; set; }
+        public Node<K, T> Suffix { get; set; }
     }
 }
