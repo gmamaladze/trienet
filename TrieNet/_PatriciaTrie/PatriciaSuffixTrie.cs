@@ -37,7 +37,7 @@ namespace Gma.DataStructures.StringSearch
 
         public IEnumerable<TValue> Retrieve(string word)
         {
-            return RetrieveSubstrings(word).Select(o => o.Value);
+            return RetrieveSubstrings(word).Select(o => o.Value).Distinct();
         }
 
         public IEnumerable<WordPosition<TValue>> RetrieveSubstrings(string query)
