@@ -11,8 +11,8 @@ namespace Gma.DataStructures.StringSearch
     /// The interface allows retrieval of multiple values along with their positions.
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
-    public interface ISuffixTrie<K, TValue> : ITrie<K, TValue> where K : IEquatable<K>
+    public interface ISuffixTrie<TValue> : ITrie<TValue>
     {
-        IEnumerable<WordPosition<TValue>> RetrieveSubstrings(ReadOnlyMemory<K> query);
+        IEnumerable<WordPosition<TValue>> RetrieveSubstrings(string query);
     }
 }

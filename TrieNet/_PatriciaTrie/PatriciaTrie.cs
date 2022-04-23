@@ -7,8 +7,8 @@ namespace Gma.DataStructures.StringSearch
 {
     [Serializable]
     public class PatriciaTrie<TValue> :
-        PatriciaTrieNode<TValue>//,
-        //ITrie<TValue>
+        PatriciaTrieNode<TValue>,
+        ITrie<TValue>
     {
         public PatriciaTrie()
             : base(

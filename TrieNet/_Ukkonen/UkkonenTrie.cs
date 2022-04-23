@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
-    public class UkkonenTrie<K, T> : ISuffixTrie<K, T> where K : IEquatable<K>
+    public class UkkonenTrie<K, T> : IGenericSuffixTrie<K, T> where K : IEquatable<K>
     {
         private readonly int _minSuffixLength;
 
@@ -31,15 +31,15 @@ namespace Gma.DataStructures.StringSearch
             }
         }
 
-        public IEnumerable<T> Retrieve(ReadOnlyMemory<K> word)
+        public IEnumerable<T> Retrieve(ReadOnlySpan<K> word)
         {
             return RetrieveSubstrings(word).Select(o => o.Value).Distinct();
         }
 
-        public IEnumerable<WordPosition<T>> RetrieveSubstrings(ReadOnlyMemory<K> word)
+        public IEnumerable<WordPosition<T>> RetrieveSubstrings(ReadOnlySpan<K> word)
         {
             if (word.Length < _minSuffixLength) return Enumerable.Empty<WordPosition<T>>();
-            var tmpNode = SearchNode(word.Span);
+            var tmpNode = SearchNode(word);
             return tmpNode == null 
                 ? Enumerable.Empty<WordPosition<T>>() 
                 : tmpNode.GetData();
