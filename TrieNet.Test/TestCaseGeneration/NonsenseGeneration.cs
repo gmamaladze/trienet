@@ -89,7 +89,7 @@ namespace Gma.DataStructures.StringSearch.Test.TestCaseGeneration
             var resourceName = typeof(NonsenseGeneration).Namespace + "." + fileName;
             using (var stream = assembly.GetManifestResourceStream(resourceName))
             {
-                Debug.Assert(stream != null, "Could not find resource {0}", resourceName);
+                Debug.Assert(stream != null, $"Could not find resource {resourceName}");
                 using (var file = new StreamReader(stream))
                 {
                     var word = new StringBuilder();

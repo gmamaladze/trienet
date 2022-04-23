@@ -5,6 +5,10 @@
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
+
+    <AssemblyName>Gma.DataStructures.StringSearch.Test</AssemblyName>
+
+    <RootNamespace>Gma.DataStructures.StringSearch.Test</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
