@@ -5,7 +5,7 @@ namespace Gma.DataStructures.StringSearch.Test
     [TestFixture]
     public class UkkonenTreeTest : SuffixTrieTest
     {
-        protected override ITrie<int> CreateTrie()
+        protected override ISuffixTrie<int> CreateTrie()
         {
             return new CharUkkonenTrie<int>(0);
         }

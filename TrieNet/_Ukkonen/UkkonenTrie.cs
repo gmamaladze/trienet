@@ -277,6 +277,8 @@ namespace Gma.DataStructures.StringSearch
             var s = inputNode;
             var tempstr = stringPart;
             var newChar = stringPart[^1];
+            var charPos = value.CharPosition;
+            value = new WordPosition<T>(charPos - SafeCutLastChar(tempstr).Length, value.Value);
 
             // line 1
             var oldroot = _root;
@@ -338,10 +340,10 @@ namespace Gma.DataStructures.StringSearch
                     tempstr.EndIndex -= 1;
                     var canret = Canonize(s.Suffix, tempstr);
                     s = canret.Item1;
-                    // use intern to ensure that tempstr is a reference from the string pool
                     tempstr = canret.Item2;
                     tempstr.EndIndex += 1;
                 }
+                value = new WordPosition<T>(charPos - SafeCutLastChar(tempstr).Length, value.Value);
 
                 // line 7
                 ret = TestAndSplit(s, SafeCutLastChar(tempstr), newChar, rest, value);
