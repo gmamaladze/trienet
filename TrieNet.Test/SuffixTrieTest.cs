@@ -22,19 +22,19 @@ namespace Gma.DataStructures.StringSearch.Test
             }*/
 
             Trie2 = CreateTrie();
-            Trie2.Add("aabccabcda", 0);
+            Trie2.Add("aabacdefac", 0);
         }
 
-        [TestCase("a", new[] { 0, 1, 5, 9 })]
-        [TestCase("b", new[] { 2, 6 })]
-        [TestCase("c", new[] { 3, 4, 7 })]
-        [TestCase("d", new[] { 8 })]
-        [TestCase("ab", new[] { 1, 5 })]
-        [TestCase("aa", new[] { 0 })]
-        [TestCase("abc", new[] { 1, 5 })]
-        [TestCase("abcd", new[] { 5 })]
-        [TestCase("abcc", new[] { 1 })]
-        [TestCase("bc", new[] { 2, 6 })]
+        [TestCase("a", new[] { 0, 1, 3, 8 })]
+        [TestCase("b", new[] { 2 })]
+        [TestCase("c", new[] { 4, 9 })]
+        [TestCase("d", new[] { 5 })]
+        [TestCase("e", new[] { 6 })]
+        [TestCase("f", new[] { 7 })]
+        [TestCase("ac", new[] { 3, 8 })]
+        [TestCase("bac", new[] { 2 })]
+        [TestCase("abac", new[] { 1 })]
+        [TestCase("aabac", new[] { 0 })]
         public void Test2(string query, IEnumerable<int> expected) {
             IEnumerable<WordPosition<int>> actual = Trie2.RetrieveSubstrings(query);
             CollectionAssert.AreEquivalent(expected, actual.Select(o => o.CharPosition));
