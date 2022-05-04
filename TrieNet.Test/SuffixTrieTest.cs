@@ -15,11 +15,11 @@ namespace Gma.DataStructures.StringSearch.Test
         [OneTimeSetUp]
         public virtual void Setup()
         {
-            /*Trie = CreateTrie();
+            Trie = CreateTrie();
             for (int i = 0; i < Words20.Length; i++)
             {
                 Trie.Add(Words20[i], i);
-            }*/
+            }
 
             Trie2 = CreateTrie();
             Trie2.Add("aabacdefac", 0);
