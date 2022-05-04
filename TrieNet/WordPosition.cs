@@ -3,10 +3,10 @@
 
 namespace Gma.DataStructures.StringSearch {
     public struct WordPosition<T> {
-        private readonly long m_CharPosition;
+        private readonly int m_CharPosition;
         private readonly T m_Value;
 
-        public WordPosition(long charPosition, T value) {
+        public WordPosition(int charPosition, T value) {
             m_CharPosition = charPosition;
             m_Value = value;
         }
@@ -15,7 +15,7 @@ namespace Gma.DataStructures.StringSearch {
             get { return m_Value; }
         }
 
-        public long CharPosition {
+        public int CharPosition {
             get { return m_CharPosition; }
         }
 
