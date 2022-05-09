@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
-    internal class Node<K, T>
+    internal class Node<K, T> where K : IComparable<K>
     {
         private readonly IDictionary<K, Edge<K, T>> _edges;
         private readonly HashSet<T> _data;
 
         public Node()
         {
-            _edges = new CharDictionary<K, T>();
+            _edges = new EdgeDictionary<K, T>();
             Suffix = null;
             _data = new HashSet<T>();
         }
@@ -57,6 +58,15 @@ namespace Gma.DataStructures.StringSearch
             Edge<K, T> result;
             _edges.TryGetValue(ch, out result);
             return result;
+        }
+
+        public IEnumerable<Edge<K, T>> GetEdgesBetween(K min, K max)
+        {
+            foreach (var ch in _edges.Keys) {
+                if (ch.CompareTo(min) >= 0 && ch.CompareTo(max) <= 0) {
+                    yield return _edges[ch];
+                }
+            }
         }
 
         public Node<K, T> Suffix { get; set; }

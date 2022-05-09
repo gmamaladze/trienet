@@ -2,7 +2,7 @@
 
 namespace Gma.DataStructures.StringSearch
 {
-    internal class Edge<K, T>
+    internal class Edge<K, T> where K : IComparable<K>
     {
         public Edge(ReadOnlyMemory<K> label, Node<K, T> target)
         {

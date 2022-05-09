@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
-    public class UkkonenTrie<K, T> : IGenericSuffixTrie<K, T> where K : IEquatable<K>
+    public class UkkonenTrie<K, T> : IGenericSuffixTrie<K, T> where K : IEquatable<K>, IComparable<K>
     {
         protected readonly int _minSuffixLength;
 
@@ -45,6 +45,26 @@ namespace Gma.DataStructures.StringSearch
                 : tmpNode.GetData();
         }
 
+        public IEnumerable<WordPosition<T>> RetrieveSubstringsRange(ReadOnlyMemory<K> min, ReadOnlyMemory<K> max) {
+            if (min.Length != max.Length) throw new ArgumentException("Lengths of min and max must be the same.");
+            if (min.Length < _minSuffixLength) return Enumerable.Empty<WordPosition<T>>();
+            var nodes = SearchNodeRange(_root, 0, min, max);
+            return nodes.SelectMany(o => o.GetData()).Distinct();
+        }
+
+
+        private static bool RegionMatchesRange(ReadOnlySpan<K> min, ReadOnlySpan<K> max, int toffset, ReadOnlySpan<K> second, int ooffset, int len)
+        {
+            for (var i = 0; i < len; i++)
+            {
+                var chMin = min[toffset + i];
+                var chMax = max[toffset + i];
+                var two = second[ooffset + i];
+                if (two.CompareTo(chMin) < 0 || two.CompareTo(chMax) > 0) return false;
+            }
+            return true;
+        }
+
 
         private static bool RegionMatches(ReadOnlySpan<K> first, int toffset, ReadOnlySpan<K> second, int ooffset, int len)
         {
@@ -55,6 +75,47 @@ namespace Gma.DataStructures.StringSearch
                 if (!one.Equals(two)) return false;
             }
             return true;
+        }
+
+        /**
+         * Returns all tree NodeA<T> (if present) that corresponds to the given range of strings.
+         */
+        private IEnumerable<Node<K, WordPosition<T>>> SearchNodeRange(Node<K, WordPosition<T>> currentNode, int i, ReadOnlyMemory<K> min, ReadOnlyMemory<K> max)
+        {
+            /*
+             * Verifies if exists a path from the root to a NodeA<T> such that the concatenation
+             * of all the labels on the path is a superstring of the given word.
+             * If such a path is found, the last NodeA<T> on it is returned.
+             */
+
+            var chMin = min.Span[i];
+            var chMax = max.Span[i];
+            // follow all the EdgeA<T> which are between min and max
+            foreach (var currentEdge in currentNode.GetEdgesBetween(chMin, chMax)) {
+                if (null == currentEdge)
+                {
+                    // there is no EdgeA<T> starting with this char
+                    continue;
+                }
+                var label = currentEdge.Label.Span;
+                var lenToMatch = Math.Min(min.Length - i, label.Length);
+
+                if (!RegionMatchesRange(min.Span, max.Span, i, label, 0, lenToMatch))
+                {
+                    // the label on the EdgeA<T> does not correspond to the one in the string to search
+                    continue;
+                }
+
+                if (label.Length >= min.Length - i)
+                {
+                    yield return currentEdge.Target;
+                } else {
+                    // advance to next NodeA<T>
+                    foreach (var result in SearchNodeRange(currentEdge.Target, i + lenToMatch, min, max)) {
+                        yield return result;
+                    }
+                }
+            }
         }
 
         /**
