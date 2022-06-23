@@ -7,18 +7,18 @@ using System.Linq;
 namespace Gma.DataStructures.StringSearch
 {
     [Serializable]
-    public class PatriciaSuffixTrie<TValue> : ITrie<TValue>
+    public class PatriciaSuffixTrie<TValue> : ISuffixTrie<TValue>
     {
         private readonly int m_MinQueryLength;
-        private readonly PatriciaTrie<TValue> m_InnerTrie;
+        private readonly PatriciaTrie<WordPosition<TValue>> m_InnerTrie;
 
         public PatriciaSuffixTrie(int minQueryLength)
-            : this(minQueryLength, new PatriciaTrie<TValue>())
+            : this(minQueryLength, new PatriciaTrie<WordPosition<TValue>>())
         {
             
         }
 
-        internal PatriciaSuffixTrie(int minQueryLength, PatriciaTrie<TValue> innerTrie)
+        internal PatriciaSuffixTrie(int minQueryLength, PatriciaTrie<WordPosition<TValue>> innerTrie)
         {
             m_MinQueryLength = minQueryLength;
             m_InnerTrie = innerTrie;
@@ -29,7 +29,18 @@ namespace Gma.DataStructures.StringSearch
             get { return m_MinQueryLength; }
         }
 
-        public IEnumerable<TValue> Retrieve(string query)
+        public long Size {
+            get {
+                return m_InnerTrie.Size();
+            }
+        }
+
+        public IEnumerable<TValue> Retrieve(string word)
+        {
+            return RetrieveSubstrings(word).Select(o => o.Value).Distinct();
+        }
+
+        public IEnumerable<WordPosition<TValue>> RetrieveSubstrings(string query)
         {
             return
                 m_InnerTrie
@@ -39,18 +50,17 @@ namespace Gma.DataStructures.StringSearch
 
         public void Add(string key, TValue value)
         {
-            IEnumerable<StringPartition> allSuffixes = GetAllSuffixes(MinQueryLength, key);
-            foreach (StringPartition currentSuffix in allSuffixes)
+            foreach ((StringPartition currentSuffix, int position) in GetAllSuffixes(MinQueryLength, key))
             {
-                m_InnerTrie.Add(currentSuffix, value);
+                m_InnerTrie.Add(currentSuffix, new WordPosition<TValue>(position, value));
             }
         }
 
-        private static IEnumerable<StringPartition> GetAllSuffixes(int minSuffixLength, string word)
+        private static IEnumerable<Tuple<StringPartition, int>> GetAllSuffixes(int minSuffixLength, string word)
         {
             for (int i = word.Length - minSuffixLength; i >= 0; i--)
             {
-                yield return new StringPartition(word, i);
+                yield return new Tuple<StringPartition, int>(new StringPartition(word, i), i);
             }
         }
     }

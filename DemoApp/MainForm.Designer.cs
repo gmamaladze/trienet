@@ -1,5 +1,4 @@
-﻿namespace Gma.DataStructures.StringSearch.DemoApp
-{
+﻿namespace Gma.DataStructures.StringSearch.DemoApp {
     partial class MainForm
     {
         /// <summary>
@@ -230,4 +229,3 @@
         private System.Windows.Forms.Label progressText;
     }
 }
-

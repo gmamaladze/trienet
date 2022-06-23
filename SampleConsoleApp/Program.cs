@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Text;
-using Gma.DataStructures.StringSearch;
 
 namespace Gma.DataStructures.StringSearch.SampleConsoleApp
 {
@@ -12,7 +7,7 @@ namespace Gma.DataStructures.StringSearch.SampleConsoleApp
     {
         private static void Main(string[] args)
         {
-            var trie = new SuffixTrie<int>(3);
+            var trie = new UkkonenTrie<char, int>(0);
             //You can replace it with other trie data structures too 
             //ITrie<int> trie = new Trie<int>();
             //ITrie<int> trie = new PatriciaSuffixTrie<int>(3);
@@ -23,6 +18,12 @@ namespace Gma.DataStructures.StringSearch.SampleConsoleApp
                 //Build-up
                 BuildUp("sample.txt", trie);
                 //Look-up
+                LookUp("a", trie);
+                LookUp("e", trie);
+                LookUp("u", trie);
+                LookUp("i", trie);
+                LookUp("o", trie);
+                LookUp("fox", trie);
                 LookUp("overs", trie);
                 LookUp("porta", trie);
                 LookUp("supercalifragilisticexpialidocious", trie);
@@ -34,23 +35,24 @@ namespace Gma.DataStructures.StringSearch.SampleConsoleApp
             Console.ReadKey();
         }
 
-        private static void BuildUp(string fileName, ITrie<int> trie)
+        private static void BuildUp(string fileName, IGenericSuffixTrie<char, int> trie)
         {
             IEnumerable<WordAndLine> allWordsInFile = GetWordsFromFile(fileName);
+            int i = 0;
             foreach (WordAndLine wordAndLine in allWordsInFile)
             {
-                trie.Add(wordAndLine.Word, wordAndLine.Line);
+                trie.Add(wordAndLine.Word.AsMemory(), ++i);
             }
         }
 
-        private static void LookUp(string searchString, ITrie<int> trie)
+        private static void LookUp(string searchString, IGenericSuffixTrie<char, int> trie)
         {
             Console.WriteLine("----------------------------------------");
             Console.WriteLine("Look-up for string '{0}'", searchString);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            int[] result = trie.Retrieve(searchString).ToArray();
+            var result = trie.RetrieveSubstrings(searchString.AsSpan()).ToArray();
             stopWatch.Stop();
 
             string matchesText = String.Join(",", result);
@@ -107,6 +109,8 @@ namespace Gma.DataStructures.StringSearch.SampleConsoleApp
                     word.Clear();
                 }
             }
+            if (word.Length == 0) yield break;
+            yield return word.ToString();
         }
 
         private struct WordAndLine

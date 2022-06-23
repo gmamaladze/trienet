@@ -8,12 +8,11 @@ namespace Gma.DataStructures.StringSearch
     /// <summary>
     /// Interface to be implemented by a data structure 
     /// which allows adding values <see cref="TValue"/> associated with <b>string</b> keys.
-    /// The interface allows retrieval of multiple values.
+    /// The interface allows retrieval of multiple values along with their positions.
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
-    public interface ITrie<TValue>
+    public interface ISuffixTrie<TValue> : ITrie<TValue>
     {
-        IEnumerable<TValue> Retrieve(string query);
-        void Add(string key, TValue value);
+        IEnumerable<WordPosition<TValue>> RetrieveSubstrings(string query);
     }
 }

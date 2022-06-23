@@ -7,13 +7,13 @@ namespace Gma.DataStructures.StringSearch
 {
     /// <summary>
     /// Interface to be implemented by a data structure 
-    /// which allows adding values <see cref="TValue"/> associated with <b>string</b> keys.
+    /// which allows adding values <see cref="TValue"/> associated with generic keys.
     /// The interface allows retrieval of multiple values.
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
-    public interface ITrie<TValue>
+    public interface IGenericTrie<K, TValue> where K : IEquatable<K>
     {
-        IEnumerable<TValue> Retrieve(string query);
-        void Add(string key, TValue value);
+        IEnumerable<TValue> Retrieve(ReadOnlySpan<K> query);
+        void Add(ReadOnlyMemory<K> key, TValue value);
     }
 }

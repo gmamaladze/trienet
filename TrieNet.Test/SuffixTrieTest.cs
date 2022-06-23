@@ -1,6 +1,7 @@
 ﻿// This code is distributed under MIT license. Copyright (c) 2013 George Mamaladze
 // See license.txt or http://opensource.org/licenses/mit-license.php
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Gma.DataStructures.StringSearch.Test
@@ -9,6 +10,7 @@ namespace Gma.DataStructures.StringSearch.Test
     {
 
         protected ITrie<int> Trie { get; private set; }
+        protected ISuffixTrie<int> Trie2 { get; private set; }
 
         [OneTimeSetUp]
         public virtual void Setup()
@@ -18,9 +20,27 @@ namespace Gma.DataStructures.StringSearch.Test
             {
                 Trie.Add(Words20[i], i);
             }
+
+            Trie2 = CreateTrie();
+            Trie2.Add("aabacdefac", 0);
         }
 
-        protected virtual ITrie<int> CreateTrie()
+        [TestCase("a", new[] { 0, 1, 3, 8 })]
+        [TestCase("b", new[] { 2 })]
+        [TestCase("c", new[] { 4, 9 })]
+        [TestCase("d", new[] { 5 })]
+        [TestCase("e", new[] { 6 })]
+        [TestCase("f", new[] { 7 })]
+        [TestCase("ac", new[] { 3, 8 })]
+        [TestCase("bac", new[] { 2 })]
+        [TestCase("abac", new[] { 1 })]
+        [TestCase("aabac", new[] { 0 })]
+        public void Test2(string query, IEnumerable<int> expected) {
+            IEnumerable<WordPosition<int>> actual = Trie2.RetrieveSubstrings(query);
+            CollectionAssert.AreEquivalent(expected, actual.Select(o => o.CharPosition));
+        }
+
+        protected virtual ISuffixTrie<int> CreateTrie()
         {
             return new PatriciaSuffixTrie<int>(1);
         }

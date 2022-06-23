@@ -16,6 +16,10 @@ namespace Gma.DataStructures.StringSearch
 
         protected abstract IEnumerable<TrieNodeBase<TValue>> Children();
 
+        public long Size() {
+            return Children().Sum(o => o.Size()) + 1;
+        }
+
         public void Add(string key, int position, TValue value)
         {
             if (key == null) throw new ArgumentNullException("key");

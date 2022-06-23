@@ -4,21 +4,25 @@ using System.Linq;
 
 namespace Gma.DataStructures.StringSearch
 {
-    
-    
-    internal class Node<T>
+    internal class Node<K, T> where K : IComparable<K>
     {
-        private readonly IDictionary<char, Edge<T>> _edges;
+        private readonly IDictionary<K, Edge<K, T>> _edges;
         private readonly HashSet<T> _data;
 
         public Node()
         {
-            _edges = new CharDictionary<T>();
+            _edges = new EdgeDictionary<K, T>();
             Suffix = null;
             _data = new HashSet<T>();
         }
 
-       
+        public IEnumerable<Node<K, T>> Children() {
+            return _edges.Values.Select(e => e.Target);
+        }
+
+        public long Size() {
+            return Children().Sum(o => o.Size()) + 1;
+        }
 
         public IEnumerable<T> GetData()
         {
@@ -39,23 +43,32 @@ namespace Gma.DataStructures.StringSearch
                 if (iter._data.Contains(value))
                     break;
 
-                iter.AddRef(value);
+                iter._data.Add(value);
                 iter = iter.Suffix;
             }
         }
 
-        public void AddEdge(char ch, Edge<T> e)
+        public void AddEdge(K ch, Edge<K, T> e)
         {
             _edges[ch] = e;
         }
 
-        public Edge<T> GetEdge(char ch)
+        public Edge<K, T> GetEdge(K ch)
         {
-            Edge<T> result;
+            Edge<K, T> result;
             _edges.TryGetValue(ch, out result);
             return result;
         }
 
-        public Node<T> Suffix { get; set; }
+        public IEnumerable<Edge<K, T>> GetEdgesBetween(K min, K max)
+        {
+            foreach (var ch in _edges.Keys) {
+                if (ch.CompareTo(min) >= 0 && ch.CompareTo(max) <= 0) {
+                    yield return _edges[ch];
+                }
+            }
+        }
+
+        public Node<K, T> Suffix { get; set; }
     }
 }
