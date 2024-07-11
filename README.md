@@ -35,27 +35,27 @@ I have not made all measurements yet, but it occurs to have significatly imroved
 
 you liked it, you find it useful
 
-![](/img/reviews.png)
+![Trie Reviews](/img/reviews.png)
 
 so I migrated it from dying https://trienet.codeplex.com/ 
 
-<pre>
+```shell
   nuget install TrieNet
-</pre>
+```
 
 and created a [NuGet package](https://www.nuget.org/packages/TrieNet/).
 
 
 # motivation
-If you are implementing a modern user friendly peace of software you will very probably need something like this:
+If you are implementing a modern user friendly piece of software you will very probably need something like this:
 
-![](/img/trie-example.png)
+![Trie Example 1](/img/trie-example.png)
 
 Or this:
 
-![](/img/trie-example_2.png)
+![Trie Example 2](/img/trie-example_2.png)
 
-I have seen manyquestions about an efficient way of implementing a (prefix or infix) search over a key value pairs where keys are strings (for instance see:http://stackoverflow.com/questions/10472881/search-liststring-for-string-startswith).
+I have seen many questions about an efficient way of implementing a (prefix or infix) search over a key value pairs where keys are strings (for instance see:http://stackoverflow.com/questions/10472881/search-liststring-for-string-startswith).
 
 So it depends:
 
@@ -110,15 +110,15 @@ Important: all diagrams are given in logarithmic scale on x-axis.
 To answer the question about when to use trie vs. linear search beter I’v experimeted with real data.
 As you can see below using a trie data structure may already be reasonable after 10.000 records if you are expecting many queries on the same data set.
 
-![](/img/trie-look-up1.png)
+![Trie Lookup 1](/img/trie-look-up1.png)
 
 Look-up times on patricia are slightly better, advantages of patricia bacame more noticable if you work with strings having many repeating parts, like quelified names of classes in sourcecode files, namespaces, variable names etc. So if you are indexing source code or something similar it makes sense to use patricia …
 
-![](/img/trie-look-up2.png)
+![Trie Lookup 1](/img/trie-look-up2.png)
 
 … even if the build-up time of patricia is higher compared to the normal trie.
 
-![](/img/trie-build-up1.png)
+![Trie Lookup 1](/img/trie-build-up1.png)
 
  
 
@@ -126,5 +126,5 @@ Look-up times on patricia are slightly better, advantages of patricia bacame mor
 
 The app demonstrates indexing of large text files and look-up inside them. I have experimented with huge texts containing millions of words. Indexing took usually only several seconds and the look-up delay was still unnoticable for the user.
 
-![](/img/trie-demo-app.png)
+![Trie Demo App](/img/trie-demo-app.png)
 
