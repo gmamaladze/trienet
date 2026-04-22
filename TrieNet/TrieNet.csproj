@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net8.0;net10.0</TargetFrameworks>
     <PackageId>TrieNet</PackageId>
     <Authors>TrieNet</Authors>
     <Company>George Mamaladze</Company>
@@ -11,11 +11,14 @@
     <Copyright>Copyright 2013</Copyright>
     <AssemblyVersion>1.0.4.0</AssemblyVersion>
     <FileVersion>1.0.4.0</FileVersion>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/gmamaladze/trienet/master/license.txt</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>ttps://github.com/gmamaladze/trienet</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/gmamaladze/trienet/master/img/trienet.png</PackageIconUrl>
+    <PackageIcon>trienet.png</PackageIcon>
     <PackageTags>ata-structures dotnet algorithms search</PackageTags>
     <Version>1.0.4</Version>
   </PropertyGroup>
-
+  <ItemGroup>
+    <None Include="..\img\trienet.png" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 </Project>
