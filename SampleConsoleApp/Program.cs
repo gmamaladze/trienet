@@ -5,7 +5,7 @@ namespace Gma.DataStructures.StringSearch.SampleConsoleApp
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main(string[] _)
         {
             var trie = new UkkonenTrie<char, int>(0);
             //You can replace it with other trie data structures too 
@@ -56,7 +56,7 @@ namespace Gma.DataStructures.StringSearch.SampleConsoleApp
             stopWatch.Stop();
 
             string matchesText = String.Join(",", result);
-            int matchesCount = result.Count();
+            int matchesCount = result.Length;
 
             if (matchesCount == 0)
             {
@@ -80,7 +80,10 @@ namespace Gma.DataStructures.StringSearch.SampleConsoleApp
                 int lineNo = 0;
                 while (!reader.EndOfStream)
                 {
-                    string line = reader.ReadLine();
+                    string? line = reader.ReadLine();
+                    if (line == null) {
+                        break;
+                    }
                     lineNo++;
                     IEnumerable<string> words = GetWordsFromLine(line);
                     foreach (string word in words)
